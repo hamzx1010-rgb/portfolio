@@ -1,0 +1,87 @@
+[
+  {
+    "id": 1,
+    "name": "Aura AI — Next.js SaaS & Agency UI Kit",
+    "category": "SaaS & AI",
+    "price": 79,
+    "old": 129,
+    "discount": 38,
+    "featured": true,
+    "order": 1,
+    "previewUrl": "https://example.com/demo/aura-ai",
+    "images": [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Nexus Dashboard — Tailwind Admin Template",
+    "category": "Dashboard",
+    "price": 69,
+    "old": 99,
+    "discount": 30,
+    "featured": true,
+    "order": 2,
+    "previewUrl": "https://example.com/demo/nexus-dashboard",
+    "images": [
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Vertex Studio — Creative Portfolio & Agency",
+    "category": "Portfolio",
+    "price": 49,
+    "old": 89,
+    "discount": 45,
+    "featured": true,
+    "order": 3,
+    "previewUrl": "https://example.com/demo/vertex-studio",
+    "images": [
+      "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Pulse Commerce — React E-Commerce Storefront",
+    "category": "E-Commerce",
+    "price": 89,
+    "old": 149,
+    "discount": 40,
+    "featured": true,
+    "order": 4,
+    "previewUrl": "https://example.com/demo/pulse-commerce",
+    "images": [
+      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Chroma Web3 — Crypto & NFT Marketplace UI",
+    "category": "Landing Pages",
+    "price": 59,
+    "old": 99,
+    "discount": 40,
+    "featured": false,
+    "order": 5,
+    "previewUrl": "https://example.com/demo/chroma-web3",
+    "images": [
+      "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Synthese Vue — Developer Documentation & Blog",
+    "category": "SaaS & AI",
+    "price": 39,
+    "old": 59,
+    "discount": 34,
+    "featured": false,
+    "order": 6,
+    "previewUrl": "https://example.com/demo/synthese-vue",
+    "images": [
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80"
+    ]
+  }
+]

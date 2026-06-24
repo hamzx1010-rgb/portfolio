@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURA DIGITAL — Premium Website & Frontend Templates</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --accent: #ff007f;
+  --accent-bright: #ff1a8c;
+  --accent-glow: rgba(255, 0, 127, 0.45);
+  --cyan: #00f0ff;
+  --cyan-glow: rgba(0, 240, 255, 0.4);
+  --violet: #8b00ff;
+  --bg-dark: #06060f;
+  --bg-card: #0e0e22;
+  --bg-panel: #141432;
+  --border: rgba(255, 255, 255, 0.12);
+  --border-glow: rgba(0, 240, 255, 0.3);
+  --text: #ffffff;
+  --text-muted: #9494b8;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-dark);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #030308; }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan), var(--accent)); border-radius: 4px; }
+
+/* NAVBAR */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(6, 6, 15, 0.85); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px); transition: all 0.3s;
+}
+.nav-inner {
+  max-width: 1400px; margin: 0 auto; padding: 0 2.5rem; height: 75px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.6rem;
+  letter-spacing: 1px; color: var(--text); text-decoration: none; display: flex;
+  align-items: center; gap: 8px;
+}
+.nav-logo span {
+  background: linear-gradient(90deg, var(--cyan), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.nav-logo .logo-dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
+
+.nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  color: var(--text-muted); text-decoration: none; font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
+  transition: all 0.2s; position: relative; padding: 0.5rem 0;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-links a.active::after, .nav-links a:hover::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--accent));
+}
+.nav-admin-btn {
+  background: rgba(139, 0, 255, 0.2); border: 1px solid rgba(139, 0, 255, 0.5) !important;
+  color: #e6b3ff !important; padding: 0.5rem 1rem !important; border-radius: 8px;
+}
+.nav-admin-btn:hover { background: var(--violet); color: #fff !important; box-shadow: 0 0 20px rgba(139,0,255,0.6); }
+
+.nav-actions { display: flex; align-items: center; gap: 1.5rem; }
+.search-box { position: relative; }
+.search-input {
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  padding: 0.6rem 1rem 0.6rem 2.4rem; border-radius: 8px; color: #fff;
+  font-family: inherit; font-size: 0.85rem; width: 220px; transition: all 0.3s;
+  outline: none;
+}
+.search-input:focus { width: 280px; border-color: var(--cyan); box-shadow: 0 0 15px rgba(0,240,255,0.2); }
+.search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.85rem; pointer-events: none; }
+
+/* HERO SECTION */
+.hero {
+  position: relative; min-height: 100vh; padding: 120px 2.5rem 80px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background: radial-gradient(circle at 75% 30%, rgba(139, 0, 255, 0.18) 0%, transparent 60%),
+                              radial-gradient(circle at 25% 70%, rgba(255, 0, 127, 0.15) 0%, transparent 60%);
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px; z-index: 1; pointer-events: none;
+}
+.hero-glow-1 { position: absolute; width: 500px; height: 500px; background: var(--cyan); filter: blur(180px); opacity: 0.12; top: 10%; left: 10%; z-index: 1; }
+.hero-glow-2 { position: absolute; width: 600px; height: 600px; background: var(--accent); filter: blur(200px); opacity: 0.15; bottom: 10%; right: 10%; z-index: 1; }
+
+.hero-inner {
+  max-width: 1400px; width: 100%; margin: 0 auto;
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center;
+  position: relative; z-index: 2;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 0.5rem 1.2rem; border-radius: 30px; color: var(--cyan);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem;
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.8rem;
+  box-shadow: 0 0 20px rgba(0,240,255,0.15);
+}
+.hero-eyebrow .pulse-dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 240, 255, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); } }
+
+.hero-title {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 800;
+  font-size: clamp(3rem, 5.5vw, 5.2rem); line-height: 1.05; letter-spacing: -1.5px;
+  margin-bottom: 1.5rem; text-transform: uppercase;
+}
+.hero-title .neon-text {
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--accent) 50%, var(--violet) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem; color: var(--text-muted); max-width: 600px;
+  margin-bottom: 2.5rem; font-weight: 400;
+}
+
+.hero-btns { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: linear-gradient(135deg, var(--accent), #d6006c);
+  color: var(--text); text-decoration: none; font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 0.95rem; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 1rem 2.2rem; border-radius: 10px; border: none; cursor: pointer;
+  transition: all 0.3s; box-shadow: 0 0 30px var(--accent-glow);
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 45px rgba(255, 0, 127, 0.7); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: rgba(0, 240, 255, 0.05); color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.4);
+  text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  font-size: 0.95rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 1rem 2.2rem;
+  border-radius: 10px; transition: all 0.3s; cursor: pointer;
+}
+.btn-outline:hover { background: rgba(0, 240, 255, 0.15); border-color: var(--cyan); box-shadow: 0 0 25px var(--cyan-glow); transform: translateY(-3px); }
+
+/* HERO VISUAL MOCKUP */
+.hero-mockup { position: relative; }
+.mockup-frame {
+  position: relative; border-radius: 20px; padding: 6px;
+  background: linear-gradient(135deg, rgba(0,240,255,0.5), rgba(255,0,127,0.5), rgba(139,0,255,0.5));
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(139,0,255,0.3);
+  transform: perspective(1000px) rotateY(-8deg) rotateX(4deg);
+  transition: transform 0.5s ease;
+}
+.mockup-frame:hover { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+.mockup-inner {
+  border-radius: 16px; overflow: hidden; background: #000; aspect-ratio: 16/10;
+  position: relative;
+}
+.mockup-inner img { width: 100%; height: 100%; object-fit: cover; }
+.floating-badge {
+  position: absolute; background: rgba(14, 14, 34, 0.9); border: 1px solid var(--cyan);
+  padding: 0.8rem 1.4rem; border-radius: 12px; backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 20px rgba(0,240,255,0.2);
+  display: flex; align-items: center; gap: 12px; z-index: 3;
+}
+.fb-1 { bottom: -20px; left: -20px; animation: float 4s ease-in-out infinite; }
+.fb-2 { top: -20px; right: -20px; border-color: var(--accent); animation: float 5s ease-in-out infinite 1s; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* TRUST FEATURES STRIP */
+.features-strip {
+  background: rgba(14, 14, 34, 0.6); border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); padding: 3rem 2.5rem; position: relative; z-index: 3;
+}
+.features-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem; }
+.feature-box { display: flex; align-items: center; gap: 1.2rem; }
+.feature-icon {
+  width: 54px; height: 54px; border-radius: 14px;
+  background: linear-gradient(135deg, rgba(0,240,255,0.15), rgba(255,0,127,0.15));
+  border: 1px solid rgba(0,240,255,0.3); display: flex; align-items: center;
+  justify-content: center; font-size: 1.5rem; color: var(--cyan); flex-shrink: 0;
+}
+.feature-text h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+.feature-text p { font-size: 0.85rem; color: var(--text-muted); }
+
+/* MARKETPLACE SECTION */
+.marketplace { padding: 7rem 2.5rem; max-width: 1400px; margin: 0 auto; position: relative; z-index: 3; }
+.section-header { text-align: center; max-width: 700px; margin: 0 auto 3.5rem; }
+.section-eyebrow { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.8rem; }
+.section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 1rem; }
+
+/* FLASH BANNER */
+.sale-banner {
+  background: linear-gradient(90deg, rgba(255,0,127,0.15), rgba(139,0,255,0.15), rgba(0,240,255,0.15));
+  border: 1px solid var(--accent); border-radius: 12px; padding: 1.2rem 2rem;
+  margin-bottom: 3rem; display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1.5rem; box-shadow: 0 0 30px rgba(255,0,127,0.2);
+}
+.sale-banner-left { display: flex; align-items: center; gap: 1.2rem; }
+.fire-icon { font-size: 2rem; animation: shake 1s infinite alternate; }
+@keyframes shake { 0% { transform: rotate(-10deg) scale(1); } 100% { transform: rotate(10deg) scale(1.1); } }
+.sale-banner h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--text); }
+.sale-banner p { color: #ffb3d9; font-size: 0.9rem; }
+.timer-box { display: flex; align-items: center; gap: 10px; }
+.timer-unit { background: rgba(0,0,0,0.6); border: 1px solid var(--accent); padding: 0.6rem 1rem; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--cyan); min-width: 50px; text-align: center; }
+
+/* FILTER BAR */
+.filter-bar { display: flex; align-items: center; justify-content: center; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+.filter-btn {
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  color: var(--text-muted); padding: 0.75rem 1.6rem; border-radius: 30px;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem;
+  letter-spacing: 1px; cursor: pointer; transition: all 0.3s; text-transform: uppercase;
+}
+.filter-btn:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--cyan), #00a3cc); border-color: var(--cyan);
+  color: #000; font-weight: 800; box-shadow: 0 0 20px rgba(0,240,255,0.4);
+}
+
+/* TEMPLATES GRID */
+.templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 2.5rem; }
+.tpl-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px;
+  overflow: hidden; position: relative; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex; flex-direction: column;
+}
+.tpl-card::before {
+  content: ''; position: absolute; inset: -1px; border-radius: 18px; padding: 1px;
+  background: linear-gradient(135deg, var(--cyan), var(--accent), var(--violet));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.4s;
+  pointer-events: none;
+}
+.tpl-card:hover::before { opacity: 1; }
+.tpl-card:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 35px rgba(0,240,255,0.15); }
+
+.tpl-img-wrap {
+  width: 100%; aspect-ratio: 16/10; overflow: hidden; position: relative;
+  background: #080814; border-bottom: 1px solid var(--border);
+}
+.tpl-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.tpl-card:hover .tpl-img-wrap img { transform: scale(1.06); }
+.tpl-preview-overlay {
+  position: absolute; inset: 0; background: rgba(6, 6, 15, 0.75); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.tpl-card:hover .tpl-preview-overlay { opacity: 1; }
+.overlay-btn {
+  background: var(--cyan); color: #000; font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800; font-size: 0.8rem; padding: 0.6rem 1.2rem; border-radius: 8px;
+  text-decoration: none; letter-spacing: 1px; text-transform: uppercase;
+  transition: transform 0.2s; box-shadow: 0 0 20px rgba(0,240,255,0.5);
+}
+.overlay-btn:hover { transform: scale(1.05); }
+
+.tpl-discount-badge {
+  position: absolute; top: 14px; right: 14px; background: var(--accent); color: #fff;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 0.75rem;
+  padding: 4px 10px; border-radius: 6px; z-index: 2; box-shadow: 0 4px 15px rgba(255,0,127,0.5);
+}
+
+.tpl-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.tpl-cat { color: var(--cyan); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.4rem; }
+.tpl-title { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.25rem; color: var(--text); margin-bottom: 1rem; line-height: 1.3; }
+
+.tpl-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.85rem; }
+.tpl-meta i { color: var(--cyan); }
+
+.tpl-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.08); margin-top: auto; }
+.tpl-price-wrap { display: flex; align-items: baseline; gap: 8px; }
+.tpl-price { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.6rem; color: var(--text); }
+.tpl-old { color: #666688; text-decoration: line-through; font-size: 0.95rem; }
+
+.btn-buy {
+  background: linear-gradient(135deg, var(--accent), #cc0066); color: #fff;
+  border: none; padding: 0.75rem 1.4rem; border-radius: 8px; font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s; box-shadow: 0 0 20px rgba(255,0,127,0.3);
+}
+.btn-buy:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(255,0,127,0.6); }
+
+/* CHECKOUT MODAL */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(3, 3, 10, 0.88); z-index: 5000;
+  display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(12px);
+}
+.modal-backdrop.show { opacity: 1; pointer-events: auto; }
+.checkout-modal {
+  background: var(--bg-panel); border: 1px solid var(--cyan); border-radius: 20px;
+  width: 100%; max-width: 540px; padding: 2.5rem; position: relative;
+  box-shadow: 0 0 60px rgba(0,240,255,0.25);
+}
+.modal-close { position: absolute; top: 1.5rem; right: 1.5rem; background: transparent; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+.modal-close:hover { color: var(--accent); }
+
+.checkout-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
+.checkout-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+
+.order-preview-box {
+  background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1.2rem; margin-bottom: 1.8rem; display: flex; align-items: center; justify-content: space-between;
+}
+.op-title { font-weight: 700; color: var(--cyan); font-size: 1.05rem; }
+.op-price { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--accent); }
+
+.license-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.8rem; }
+.lic-card {
+  border: 1px solid var(--border); border-radius: 10px; padding: 1rem;
+  cursor: pointer; transition: all 0.2s; background: rgba(255,255,255,0.02);
+}
+.lic-card:hover { border-color: rgba(0,240,255,0.4); }
+.lic-card.selected { border-color: var(--cyan); background: rgba(0,240,255,0.1); box-shadow: 0 0 15px rgba(0,240,255,0.2); }
+.lic-card h5 { font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; color: var(--text); margin-bottom: 4px; }
+.lic-card p { font-size: 0.75rem; color: var(--text-muted); }
+
+.form-group { margin-bottom: 1.4rem; }
+.form-label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.form-input {
+  width: 100%; padding: 0.9rem 1.2rem; background: rgba(0,0,0,0.6);
+  border: 1px solid var(--border); color: #fff; font-family: inherit; font-size: 0.95rem;
+  border-radius: 8px; outline: none; transition: border-color 0.3s;
+}
+.form-input:focus { border-color: var(--cyan); }
+
+.payment-methods { display: flex; gap: 10px; margin-bottom: 2rem; }
+.pay-m {
+  flex: 1; padding: 0.8rem; text-align: center; border: 1px solid var(--border);
+  border-radius: 8px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
+  cursor: pointer; transition: all 0.2s;
+}
+.pay-m.active { border-color: var(--accent); color: var(--text); background: rgba(255,0,127,0.15); }
+
+/* SUCCESS MODAL VIEW */
+.success-view { text-align: center; padding: 2rem 0; display: none; }
+.success-icon { width: 80px; height: 80px; background: rgba(0,240,255,0.15); border: 2px solid var(--cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--cyan); margin: 0 auto 1.5rem; box-shadow: 0 0 30px rgba(0,240,255,0.4); }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 30px; right: 30px; background: var(--bg-panel);
+  border: 1px solid var(--cyan); color: #fff; padding: 1rem 1.8rem; border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 20px rgba(0,240,255,0.3);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem;
+  z-index: 9999; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex; align-items: center; gap: 12px;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* FOOTER */
+.footer { background: #04040a; border-top: 1px solid var(--border); padding: 5rem 2.5rem 3rem; margin-top: 6rem; position: relative; z-index: 3; }
+.footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; }
+.footer-about p { color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem; max-width: 320px; }
+.footer-col h5 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 800; color: var(--cyan); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.5rem; }
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 0.8rem; }
+.footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+.footer-links a:hover { color: var(--accent); }
+
+.footer-bottom { max-width: 1400px; margin: 0 auto; padding-top: 2.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; color: var(--text-muted); font-size: 0.85rem; }
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+  .hero-eyebrow { margin: 0 auto 1.5rem; }
+  .hero-subtitle { margin: 0 auto 2.5rem; }
+  .hero-btns { justify-content: center; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="logo-dot"></span> AURA <span>DIGITAL</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home" class="active">HOME</a></li>
+      <li><a href="#templates">TEMPLATES</a></li>
+      <li><a href="#features">WHY US</a></li>
+      <li><a href="admin.html" class="nav-admin-btn"><i class="fas fa-sliders-h"></i> ADMIN PANEL</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search templates..." id="searchInput" oninput="filterSearch()">
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot"></span> ⚡ NEXT-GEN FRONTEND TEMPLATES
+      </div>
+      <h1 class="hero-title">
+        PREMIUM WEBSITE <span class="neon-text">TEMPLATES</span>
+      </h1>
+      <p class="hero-subtitle">
+        Elevate your online presence with ultra-modern UI architectures. Built for Next.js, React, Vue, and Tailwind CSS. Designed for success, responsive, and easily customizable.
+      </p>
+      <div class="hero-btns">
+        <a href="#templates" class="btn-primary">EXPLORE TEMPLATES <i class="fas fa-arrow-right"></i></a>
+        <a href="#templates" class="btn-outline"><i class="fas fa-desktop"></i> LIVE SHOWCASE</a>
+      </div>
+    </div>
+
+    <div class="hero-mockup">
+      <div class="mockup-frame">
+        <div class="mockup-inner">
+          <img src="images/hero-promo.png" alt="Aura Digital Promo Showcase" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80'">
+        </div>
+      </div>
+      <div class="floating-badge fb-1">
+        <i class="fas fa-check-circle" style="color:var(--cyan); font-size:1.4rem;"></i>
+        <div>
+          <strong style="display:block; font-family:'Space Grotesk'; font-size:0.85rem;">100% Responsive</strong>
+          <span style="font-size:0.75rem; color:var(--text-muted)">Mobile & Tablet Ready</span>
+        </div>
+      </div>
+      <div class="floating-badge fb-2">
+        <i class="fas fa-code" style="color:var(--accent); font-size:1.4rem;"></i>
+        <div>
+          <strong style="display:block; font-family:'Space Grotesk'; font-size:0.85rem;">Clean Architecture</strong>
+          <span style="font-size:0.75rem; color:var(--text-muted)">Tailwind & TypeScript</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST FEATURES -->
+<div class="features-strip" id="features">
+  <div class="features-grid">
+    <div class="feature-box">
+      <div class="feature-icon"><i class="fab fa-react"></i></div>
+      <div class="feature-text">
+        <h4>React & Tailwind Ready</h4>
+        <p>Production-grade codebases built with modern web standards.</p>
+      </div>
+    </div>
+    <div class="feature-box">
+      <div class="feature-icon" style="color:var(--accent); border-color: rgba(255,0,127,0.3)"><i class="fab fa-figma"></i></div>
+      <div class="feature-text">
+        <h4>Figma Design Files</h4>
+        <p>Editable UI design tokens and complete component libraries included.</p>
+      </div>
+    </div>
+    <div class="feature-box">
+      <div class="feature-icon" style="color:var(--violet); border-color: rgba(139,0,255,0.3)"><i class="fas fa-mobile-alt"></i></div>
+      <div class="feature-text">
+        <h4>100% Responsive</h4>
+        <p>Flawless rendering across retina displays, laptops, tablets, and phones.</p>
+      </div>
+    </div>
+    <div class="feature-box">
+      <div class="feature-icon" style="color:#00ff88; border-color: rgba(0,255,136,0.3)"><i class="fas fa-sync"></i></div>
+      <div class="feature-text">
+        <h4>Lifetime Updates</h4>
+        <p>One-time purchase gives you free lifetime updates and priority tech support.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MARKETPLACE -->
+<section class="marketplace" id="templates">
+  <div class="section-header">
+    <div class="section-eyebrow">CURATED TEMPLATE CATALOG</div>
+    <h2 class="section-title">EXPLORE OUR TEMPLATES</h2>
+    <p style="color:var(--text-muted)">Select from our high-converting frontend solutions designed specifically for SaaS founders, creative agencies, and modern web developers.</p>
+  </div>
+
+  <!-- FLASH SALE BANNER -->
+  <div class="sale-banner">
+    <div class="sale-banner-left">
+      <span class="fire-icon">🔥</span>
+      <div>
+        <h3>SUMMER DEVELOPER DROP</h3>
+        <p>Get up to 45% off unlimited agency licenses during this weekly flash sale.</p>
+      </div>
+    </div>
+    <div class="timer-box">
+      <div class="timer-unit" id="t-hours">14</div>:
+      <div class="timer-unit" id="t-mins">28</div>:
+      <div class="timer-unit" id="t-secs">49</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY FILTER -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCategory('ALL', this)">ALL TEMPLATES</button>
+    <button class="filter-btn" onclick="filterCategory('SaaS & AI', this)">SAAS & AI</button>
+    <button class="filter-btn" onclick="filterCategory('Dashboard', this)">DASHBOARDS</button>
+    <button class="filter-btn" onclick="filterCategory('Portfolio', this)">PORTFOLIO</button>
+    <button class="filter-btn" onclick="filterCategory('E-Commerce', this)">E-COMMERCE</button>
+    <button class="filter-btn" onclick="filterCategory('Landing Pages', this)">LANDING PAGES</button>
+  </div>
+
+  <!-- GRID -->
+  <div class="templates-grid" id="templatesGrid">
+    Loading marketplace templates...
+  </div>
+</section>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-backdrop" id="checkoutModal">
+  <div class="checkout-modal">
+    <button class="modal-close" onclick="closeCheckout()">✕</button>
+    
+    <div id="checkoutFormView">
+      <h3 class="checkout-title">GET TEMPLATE ACCESS</h3>
+      <p class="checkout-sub">Instant download & license delivery sent directly to your inbox.</p>
+
+      <div class="order-preview-box">
+        <div>
+          <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">SELECTED ITEM</span>
+          <div class="op-title" id="chkProductTitle">Aura AI Template</div>
+        </div>
+        <div class="op-price" id="chkPrice">$79</div>
+      </div>
+
+      <label class="form-label">CHOOSE LICENSE TIER</label>
+      <div class="license-options">
+        <div class="lic-card selected" id="licSingle" onclick="selectLicense('Single Site', 0)">
+          <h5>Single Site License</h5>
+          <p>For 1 personal or client project. Standard support.</p>
+        </div>
+        <div class="lic-card" id="licAgency" onclick="selectLicense('Unlimited Agency', 40)">
+          <h5>Unlimited Agency (+ $40)</h5>
+          <p>Unlimited client commercial sites. Priority VIP support.</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">YOUR FULL NAME</label>
+        <input type="text" class="form-input" id="chkName" placeholder="Alex Rivera">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">EMAIL ADDRESS (FOR DOWNLOAD KEY)</label>
+        <input type="email" class="form-input" id="chkEmail" placeholder="alex@techdev.io">
+      </div>
+
+      <label class="form-label">PAYMENT METHOD</label>
+      <div class="payment-methods">
+        <div class="pay-m active" onclick="selectPay(this)"><i class="fas fa-credit-card"></i> Card</div>
+        <div class="pay-m" onclick="selectPay(this)"><i class="fab fa-paypal"></i> PayPal</div>
+        <div class="pay-m" onclick="selectPay(this)"><i class="fab fa-ethereum"></i> Crypto</div>
+      </div>
+
+      <button class="btn-primary" style="width:100%; justify-content:center; padding:1.1rem; font-size:1rem;" onclick="processOrder()">
+        <i class="fas fa-lock"></i> COMPLETE PURCHASE (<span id="chkTotalBtn">$79</span>)
+      </button>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div class="success-view" id="checkoutSuccessView">
+      <div class="success-icon"><i class="fas fa-check"></i></div>
+      <h3 class="checkout-title">PURCHASE CONFIRMED!</h3>
+      <p style="color:var(--text-muted); margin:1rem 0 2rem;">
+        Welcome to the next level of frontend design. Your download link, repository invite, and license key have been dispatched to your email address.
+      </p>
+      <button class="btn-outline" style="width:100%; justify-content:center;" onclick="closeCheckout()">BACK TO MARKETPLACE</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toastBox">
+  <i class="fas fa-bell" style="color:var(--cyan)"></i>
+  <span id="toastMsg">Notification text</span>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-about">
+      <a href="#" class="nav-logo">
+        <span class="logo-dot"></span> AURA <span>DIGITAL</span>
+      </a>
+      <p>The premier global destination for production-ready frontend website templates. Engineered with precision for founders and creative agencies.</p>
+    </div>
+    <div class="footer-col">
+      <h5>TEMPLATES</h5>
+      <ul class="footer-links">
+        <li><a href="#templates">Next.js SaaS UI</a></li>
+        <li><a href="#templates">Tailwind Dashboards</a></li>
+        <li><a href="#templates">Creative Portfolios</a></li>
+        <li><a href="#templates">E-Commerce Storefronts</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>RESOURCES</h5>
+      <ul class="footer-links">
+        <li><a href="#templates">Documentation</a></li>
+        <li><a href="#templates">Figma UI Kits</a></li>
+        <li><a href="#templates">Changelog</a></li>
+        <li><a href="admin.html">Workspace Admin</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>STAY IN THE LOOP</h5>
+      <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">Subscribe to get early drops and weekly developer discounts.</p>
+      <div style="display:flex; gap:8px;">
+        <input type="email" class="form-input" placeholder="developer@code.io" style="padding:0.6rem 1rem;">
+        <button class="btn-buy" onclick="showToast('🎉 Subscribed to Aura drops!')">JOIN</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 AURA DIGITAL INC. ALL RIGHTS RESERVED.</p>
+    <div style="display:flex; gap:1.5rem; font-size:1.2rem; color:var(--text-muted);">
+      <a href="#" style="color:inherit;"><i class="fab fa-github"></i></a>
+      <a href="#" style="color:inherit;"><i class="fab fa-twitter"></i></a>
+      <a href="#" style="color:inherit;"><i class="fab fa-discord"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// --- DEFAULT TEMPLATES DATA ---
+const DEFAULT_PRODUCTS = [
+  {
+    id: 1, name: "Aura AI — Next.js SaaS & Agency UI Kit", category: "SaaS & AI", price: 79, old: 129, discount: 38, featured: true, order: 1, previewUrl: "https://example.com/demo/aura-ai",
+    images: ["https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"]
+  },
+  {
+    id: 2, name: "Nexus Dashboard — Tailwind Admin Template", category: "Dashboard", price: 69, old: 99, discount: 30, featured: true, order: 2, previewUrl: "https://example.com/demo/nexus-dashboard",
+    images: ["https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80"]
+  },
+  {
+    id: 3, name: "Vertex Studio — Creative Portfolio & Agency", category: "Portfolio", price: 49, old: 89, discount: 45, featured: true, order: 3, previewUrl: "https://example.com/demo/vertex-studio",
+    images: ["https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80"]
+  },
+  {
+    id: 4, name: "Pulse Commerce — React E-Commerce Storefront", category: "E-Commerce", price: 89, old: 149, discount: 40, featured: true, order: 4, previewUrl: "https://example.com/demo/pulse-commerce",
+    images: ["https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80"]
+  },
+  {
+    id: 5, name: "Chroma Web3 — Crypto & NFT Marketplace UI", category: "Landing Pages", price: 59, old: 99, discount: 40, featured: false, order: 5, previewUrl: "https://example.com/demo/chroma-web3",
+    images: ["https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80"]
+  },
+  {
+    id: 6, name: "Synthese Vue — Developer Documentation & Blog", category: "SaaS & AI", price: 39, old: 59, discount: 34, featured: false, order: 6, previewUrl: "https://example.com/demo/synthese-vue",
+    images: ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80"]
+  }
+];
+
+let allProducts = [];
+let currentCategory = 'ALL';
+let currentSearch = '';
+
+function getLocalProducts() {
+  const p = localStorage.getItem('aura_products');
+  if (!p) { localStorage.setItem('aura_products', JSON.stringify(DEFAULT_PRODUCTS)); return DEFAULT_PRODUCTS; }
+  return JSON.parse(p);
+}
+
+function getLocalOrders() {
+  const o = localStorage.getItem('aura_orders');
+  return o ? JSON.parse(o) : [];
+}
+function setLocalOrders(arr) { localStorage.setItem('aura_orders', JSON.stringify(arr)); }
+
+async function initMarketplace() {
+  try {
+    const res = await fetch('/api/products');
+    if (!res.ok) throw new Error('API offline');
+    allProducts = await res.json();
+  } catch (e) {
+    allProducts = getLocalProducts();
+  }
+  renderTemplates();
+  startCountdown();
+}
+
+function renderTemplates() {
+  const grid = document.getElementById('templatesGrid');
+  let filtered = allProducts.filter(p => {
+    const matchCat = currentCategory === 'ALL' || p.category.toLowerCase() === currentCategory.toLowerCase();
+    const matchQuery = !currentSearch || p.name.toLowerCase().includes(currentSearch.toLowerCase()) || p.category.toLowerCase().includes(currentSearch.toLowerCase());
+    return matchCat && matchQuery;
+  });
+
+  filtered.sort((a,b) => (a.order||999) - (b.order||999));
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 4rem; color:var(--text-muted);">No frontend templates matching your query.</div>';
+    return;
+  }
+
+  let html = '';
+  filtered.forEach(p => {
+    const img = p.images && p.images[0] ? p.images[0] : 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80';
+    html += `<div class="tpl-card">
+      <div class="tpl-img-wrap">
+        <img src="${img}" alt="${p.name}">
+        <div class="tpl-preview-overlay">
+          <a href="${p.previewUrl || '#'}" target="_blank" class="overlay-btn"><i class="fas fa-eye"></i> Live Demo</a>
+        </div>
+        ${p.discount ? `<span class="tpl-discount-badge">-${p.discount}%</span>` : ''}
+      </div>
+      <div class="tpl-body">
+        <div>
+          <span class="tpl-cat">${p.category}</span>
+          <h3 class="tpl-title">${p.name}</h3>
+        </div>
+        <div class="tpl-meta">
+          <span><i class="fab fa-react"></i> React</span>
+          <span><i class="fab fa-figma"></i> Figma</span>
+          <span><i class="fas fa-bolt"></i> Tailwind</span>
+        </div>
+        <div class="tpl-footer">
+          <div class="tpl-price-wrap">
+            <span class="tpl-price">$${p.price}</span>
+            ${p.old ? `<span class="tpl-old">$${p.old}</span>` : ''}
+          </div>
+          <button class="btn-buy" onclick="openCheckout(${p.id})">BUY TEMPLATE</button>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  grid.innerHTML = html;
+}
+
+function filterCategory(cat, btn) {
+  currentCategory = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderTemplates();
+}
+
+function filterSearch() {
+  currentSearch = document.getElementById('searchInput').value.trim();
+  renderTemplates();
+}
+
+// --- CHECKOUT LOGIC ---
+let activeTemplate = null;
+let selectedLicenseName = 'Single Site License';
+let basePrice = 0;
+let extraPrice = 0;
+
+function openCheckout(id) {
+  activeTemplate = allProducts.find(p => p.id === id);
+  if (!activeTemplate) return;
+
+  basePrice = activeTemplate.price;
+  extraPrice = 0;
+  selectedLicenseName = 'Single Site License';
+
+  document.getElementById('chkProductTitle').textContent = activeTemplate.name;
+  document.getElementById('chkPrice').textContent = '$' + basePrice;
+  updateCheckoutTotal();
+
+  document.getElementById('licSingle').classList.add('selected');
+  document.getElementById('licAgency').classList.remove('selected');
+  document.getElementById('chkName').value = '';
+  document.getElementById('chkEmail').value = '';
+
+  document.getElementById('checkoutFormView').style.display = 'block';
+  document.getElementById('checkoutSuccessView').style.display = 'none';
+  document.getElementById('checkoutModal').classList.add('show');
+}
+
+function selectLicense(name, extra) {
+  selectedLicenseName = name === 'Single Site' ? 'Single Site License' : 'Unlimited Agency License';
+  extraPrice = extra;
+  if (extra === 0) {
+    document.getElementById('licSingle').classList.add('selected');
+    document.getElementById('licAgency').classList.remove('selected');
+  } else {
+    document.getElementById('licSingle').classList.remove('selected');
+    document.getElementById('licAgency').classList.add('selected');
+  }
+  updateCheckoutTotal();
+}
+
+function updateCheckoutTotal() {
+  const total = basePrice + extraPrice;
+  document.getElementById('chkPrice').textContent = '$' + total;
+  document.getElementById('chkTotalBtn').textContent = '$' + total;
+}
+
+function selectPay(el) {
+  document.querySelectorAll('.pay-m').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+}
+
+async function processOrder() {
+  const name = document.getElementById('chkName').value.trim();
+  const email = document.getElementById('chkEmail').value.trim();
+  const total = basePrice + extraPrice;
+
+  if (!name || !email || !email.includes('@')) {
+    showToast('⚠️ Please enter a valid name and email.');
+    return;
+  }
+
+  const orderPayload = {
+    product: activeTemplate.name,
+    customer: name,
+    email: email,
+    phone: email,
+    license: selectedLicenseName,
+    size: selectedLicenseName,
+    price: total,
+    qty: 1
+  };
+
+  try {
+    const res = await fetch('/api/orders', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(orderPayload)
+    });
+    if (!res.ok) throw new Error('API offline');
+  } catch (e) {
+    const orders = getLocalOrders();
+    orders.push({
+      ...orderPayload,
+      id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
+      date: new Date().toISOString().split('T')[0]
+    });
+    setLocalOrders(orders);
+  }
+
+  document.getElementById('checkoutFormView').style.display = 'none';
+  document.getElementById('checkoutSuccessView').style.display = 'block';
+  showToast('🎉 Order confirmed! Access link sent.');
+}
+
+function closeCheckout() { document.getElementById('checkoutModal').classList.remove('show'); }
+
+// COUNTDOWN TIMER
+function startCountdown() {
+  let h = 14, m = 28, s = 49;
+  setInterval(() => {
+    if (s > 0) s--;
+    else { s = 59; if (m > 0) m--; else { m = 59; if (h > 0) h--; else h = 23; } }
+    document.getElementById('t-hours').textContent = String(h).padStart(2, '0');
+    document.getElementById('t-mins').textContent = String(m).padStart(2, '0');
+    document.getElementById('t-secs').textContent = String(s).padStart(2, '0');
+  }, 1000);
+}
+
+// TOAST
+function showToast(msg) {
+  const box = document.getElementById('toastBox');
+  document.getElementById('toastMsg').textContent = msg;
+  box.classList.add('show');
+  setTimeout(() => box.classList.remove('show'), 3500);
+}
+
+document.getElementById('checkoutModal').addEventListener('click', (e) => { if (e.target.id === 'checkoutModal') closeCheckout(); });
+
+// Start app
+initMarketplace();
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10d7889bb832837',t:'MTc4MjMyMjMzNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
