@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TemplateFolio - Website Templates</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <a href="/" class="brand">TemplateFolio</a>
+            <div class="nav-links">
+                <a href="#portfolio">Portfolio</a>
+                <a href="#shop">Buy</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <span class="badge">Premium Website Templates</span>
+            <h1>Professional Templates for Your Business</h1>
+            <p>Ready-made websites for clothing stores, universities, portfolios, and more. Launch faster.</p>
+            <a href="#portfolio" class="btn btn-main">View Templates</a>
+        </div>
+    </header>
+
+    <section id="portfolio" class="section">
+        <div class="container">
+            <div class="center">
+                <h2 class="section-title">Portfolio</h2>
+                <p class="section-desc">Browse our collection of modern website templates.</p>
+            </div>
+            <div class="filters" id="categoryFilter"></div>
+            <div class="grid" id="portfolioGrid"></div>
+            <p id="noProducts" class="no-products" style="display: none;">No templates in this category yet.</p>
+        </div>
+    </section>
+
+    <section id="shop" class="section section-dark">
+        <div class="container">
+            <div class="center">
+                <h2 class="section-title light">Buy a Template</h2>
+                <p class="section-desc light">Choose a template and order it now.</p>
+            </div>
+            <div class="grid" id="shopGrid"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="contact-card">
+                <h2>Need a Custom Website?</h2>
+                <p>We can build a custom website exactly how you want it.</p>
+                <a href="/cdn-cgi/l/email-protection#690a06071d080a1d291d0c041905081d0c0f06050006470a0604" class="btn btn-main">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 TemplateFolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="modal" id="orderModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-gallery">
+                <img id="modalImage" src="" alt="Template preview">
+                <button class="gal-btn gal-prev" id="prevBtn" onclick="prevImage()">&#8249;</button>
+                <button class="gal-btn gal-next" id="nextBtn" onclick="nextImage()">&#8250;</button>
+                <span class="gal-counter" id="galCounter"></span>
+            </div>
+            <div class="modal-info">
+                <span class="modal-category" id="modalCategory"></span>
+                <h3 id="modalTitle"></h3>
+                <div class="modal-price">
+                    <span class="price-current" id="modalPrice"></span>
+                    <span class="price-old" id="modalOldPrice"></span>
+                    <span class="price-discount" id="modalDiscount"></span>
+                </div>
+                <form id="orderForm" class="order-form">
+                    <input type="text" id="customerName" placeholder="Full Name" required>
+                    <input type="tel" id="customerPhone" placeholder="Phone / WhatsApp" required>
+                    <input type="email" id="customerEmail" placeholder="Email">
+                    <input type="text" id="websiteType" placeholder="Website Type">
+                    <div class="qty-row">
+                        <span>Quantity</span>
+                        <div class="qty">
+                            <button type="button" onclick="changeQty(-1)">-</button>
+                            <span id="qtyDisplay">1</span>
+                            <button type="button" onclick="changeQty(1)">+</button>
+                        </div>
+                    </div>
+                    <div class="total-row">
+                        <span>Total</span>
+                        <span id="totalPrice">0 DZD</span>
+                    </div>
+                    <button type="submit" class="btn btn-main btn-block">Confirm Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <span class="toast-icon">&#10003;</span>
+        <span>Order submitted! We will contact you soon.</span>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="app.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10c98dbaa8b2820',t:'MTc4MjMxMzE3NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
