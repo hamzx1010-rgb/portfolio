@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Templates Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-symbol">◆</span>
+                <span>TemplateFolio</span>
+            </a>
+            <div class="nav-links">
+                <a href="#portfolio">Portfolio</a>
+                <a href="#shop">Templates</a>
+                <a href="#contact" class="nav-cta">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-modern">
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="hero-tag">Premium Website Templates</span>
+                <h1>Launch Your Website in Minutes</h1>
+                <p>Handcrafted, modern website templates for clothing stores, universities, portfolios, and businesses. Ready to deploy.</p>
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="btn-primary">View Portfolio</a>
+                    <a href="#shop" class="btn-secondary">Buy a Template</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card floating">
+                    <div class="card-screen"></div>
+                </div>
+                <div class="hero-card floating-delayed">
+                    <div class="card-screen-alt"></div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-gradient"></div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Portfolio</span>
+                <h2>Featured Website Templates</h2>
+                <p>Browse our collection of professional templates designed for real businesses.</p>
+            </div>
+
+            <div class="filter-bar">
+                <button class="filter-chip active" data-filter="all">All</button>
+                <button class="filter-chip" data-filter="Clothing Store">Clothing Store</button>
+                <button class="filter-chip" data-filter="University">University</button>
+                <button class="filter-chip" data-filter="Portfolio">Portfolio</button>
+                <button class="filter-chip" data-filter="Business">Business</button>
+                <button class="filter-chip" data-filter="E-commerce">E-commerce</button>
+            </div>
+
+            <div class="portfolio-grid" id="portfolioGrid"></div>
+            <div id="noProducts" class="empty-state" style="display: none;">No templates available in this category yet.</div>
+        </div>
+    </section>
+
+    <!-- Shop / Buy Section -->
+    <section id="shop" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag light">Buy</span>
+                <h2>Get Your Template Today</h2>
+                <p>Select a template, fill in your details, and we’ll contact you to complete the order.</p>
+            </div>
+            <div class="shop-grid" id="shopGrid"></div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Need a Custom Website?</h2>
+                <p>We also build custom websites from scratch. Contact us for a quote.</p>
+                <a href="/cdn-cgi/l/email-protection#76151918021715023602131b061a17021310191a1f195815191b" class="btn-primary">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-symbol">◆</span>
+                    <span>TemplateFolio</span>
+                </div>
+                <p>&copy; 2026 TemplateFolio. All rights reserved.</p>
+                <a href="/admin.html" class="admin-link">Admin</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-gallery">
+                <img id="modalImage" src="" alt="Template preview">
+                <button class="gallery-nav prev" id="prevBtn" onclick="prevImage()">&#8249;</button>
+                <button class="gallery-nav next" id="nextBtn" onclick="nextImage()">&#8250;</button>
+                <div class="gallery-counter" id="galleryCounter"></div>
+            </div>
+            <div class="modal-info">
+                <span class="modal-category" id="modalCategory"></span>
+                <h3 id="modalTitle"></h3>
+                <div class="modal-price">
+                    <span class="price-current" id="modalPrice"></span>
+                    <span class="price-old" id="modalOldPrice"></span>
+                    <span class="discount-tag" id="modalDiscount"></span>
+                </div>
+                <form id="orderForm" class="order-form">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Full Name</label>
+                            <input type="text" id="customerName" required placeholder="Your name">
+                        </div>
+                        <div class="form-field">
+                            <label>Phone / WhatsApp</label>
+                            <input type="tel" id="customerPhone" required placeholder="Your phone number">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Email</label>
+                            <input type="email" id="customerEmail" placeholder="your@email.com">
+                        </div>
+                        <div class="form-field">
+                            <label>Website Type</label>
+                            <input type="text" id="websiteType" placeholder="e.g. Clothing Store">
+                        </div>
+                    </div>
+                    <div class="qty-row">
+                        <label>Quantity</label>
+                        <div class="qty-control">
+                            <button type="button" onclick="decreaseQty()">−</button>
+                            <span id="qtyDisplay">1</span>
+                            <button type="button" onclick="increaseQty()">+</button>
+                        </div>
+                    </div>
+                    <div class="total-row">
+                        <span>Total</span>
+                        <span id="totalPrice">0 DZD</span>
+                    </div>
+                    <button type="submit" class="btn-primary submit-order">Confirm Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span>Order submitted successfully! We’ll contact you soon.</span>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="app.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1081675ef8bba90',t:'MTc4MjI2NTg5MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
