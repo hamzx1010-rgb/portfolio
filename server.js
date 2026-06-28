@@ -4,165 +4,226 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const ROOT = __dirname;
+const PUBLIC_DIR = path.join(ROOT, 'public');
+const PRODUCTS_FILE = path.join(ROOT, 'products.json');
+const ORDERS_FILE = path.join(ROOT, 'orders.json');
 
-// Middleware
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb' }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.static(PUBLIC_DIR));
 
-const PRODUCTS_FILE = path.join(__dirname, 'data', 'products.json');
-const ORDERS_FILE = path.join(__dirname, 'data', 'orders.json');
-
-// Helper functions to read/write JSON files safely
-function readJSON(filePath) {
-  try {
-    if (!fs.existsSync(filePath)) return [];
-    const data = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    console.error('Error reading JSON:', err);
-    return [];
+function ensureJsonFile(filePath, fallback = []) {
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(filePath, JSON.stringify(fallback, null, 2), 'utf8');
   }
 }
 
-function writeJSON(filePath, data) {
+function readJson(filePath, fallback = []) {
+  try {
+    ensureJsonFile(filePath, fallback);
+    const raw = fs.readFileSync(filePath, 'utf8');
+    const parsed = JSON.parse(raw || '[]');
+    return Array.isArray(parsed) ? parsed : fallback;
+  } catch (error) {
+    console.error(`Failed to read ${filePath}:`, error);
+    return fallback;
+  }
+}
+
+function writeJson(filePath, data) {
   try {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-  } catch (err) {
-    console.error('Error writing JSON:', err);
+    return true;
+  } catch (error) {
+    console.error(`Failed to write ${filePath}:`, error);
+    return false;
   }
 }
 
-// --- STOREFRONT & ADMIN API ENDPOINTS ---
+function toNumber(value, fallback = 0) {
+  const num = Number(value);
+  return Number.isFinite(num) ? num : fallback;
+}
 
-// GET products (Storefront & Admin)
-app.get(['/api/products', '/api/admin/products'], (req, res) => {
-  const products = readJSON(PRODUCTS_FILE);
+function createOrderId() {
+  return 'ORD-' + Math.floor(100000 + Math.random() * 900000);
+}
+
+ensureJsonFile(PRODUCTS_FILE, []);
+ensureJsonFile(ORDERS_FILE, []);
+
+app.get('/api/health', (req, res) => {
+  const products = readJson(PRODUCTS_FILE, []);
+  const orders = readJson(ORDERS_FILE, []);
+  res.json({
+    ok: true,
+    products: products.length,
+    orders: orders.length,
+    time: new Date().toISOString()
+  });
+});
+
+app.get('/api/products', (req, res) => {
+  const products = readJson(PRODUCTS_FILE, []).sort((a, b) => (a.order || 999) - (b.order || 999));
   res.json(products);
 });
 
-// GET single product
-app.get(['/api/products/:id', '/api/admin/products/:id'], (req, res) => {
-  const products = readJSON(PRODUCTS_FILE);
-  const p = products.find(x => x.id === parseInt(req.params.id));
-  if (!p) return res.status(404).json({ error: 'Product not found' });
-  res.json(p);
+app.get('/api/admin/products', (req, res) => {
+  const products = readJson(PRODUCTS_FILE, []).sort((a, b) => (a.order || 999) - (b.order || 999));
+  res.json(products);
 });
 
-// POST new order (Storefront checkout)
-app.post('/api/orders', (req, res) => {
-  const orders = readJSON(ORDERS_FILE);
-  const newOrder = {
-    id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
-    product: req.body.product || 'Unknown Template',
-    customer: req.body.customer || 'Anonymous',
-    phone: req.body.phone || req.body.email || 'N/A',
-    size: req.body.size || req.body.license || 'Standard License',
-    qty: parseInt(req.body.qty) || 1,
-    price: parseInt(req.body.price) || 0,
-    date: new Date().toISOString().split('T')[0]
+app.post('/api/admin/products', (req, res) => {
+  const products = readJson(PRODUCTS_FILE, []);
+  const nextId = products.length ? Math.max(...products.map(p => p.id || 0)) + 1 : 1;
+
+  const name = String(req.body.name || '').trim();
+  const category = String(req.body.category || '').trim();
+  const price = toNumber(req.body.price, NaN);
+  const oldPrice = req.body.oldPrice === '' || req.body.oldPrice === null || req.body.oldPrice === undefined
+    ? null
+    : toNumber(req.body.oldPrice, NaN);
+  const previewUrl = String(req.body.previewUrl || '').trim();
+  const image = String(req.body.image || '').trim();
+  const featured = !!req.body.featured;
+
+  if (!name || !category || !Number.isFinite(price)) {
+    return res.status(400).json({ error: 'Name, category and valid price are required.' });
+  }
+
+  const product = {
+    id: nextId,
+    name,
+    category,
+    price,
+    oldPrice: Number.isFinite(oldPrice) ? oldPrice : null,
+    featured,
+    order: products.length + 1,
+    previewUrl: previewUrl || '#',
+    image: image || '',
+    createdAt: new Date().toISOString()
   };
-  orders.push(newOrder);
-  writeJSON(ORDERS_FILE, orders);
+
+  products.push(product);
+  const saved = writeJson(PRODUCTS_FILE, products);
+  if (!saved) return res.status(500).json({ error: 'Could not save product.' });
+  res.status(201).json(product);
+});
+
+app.put('/api/admin/products/:id', (req, res) => {
+  const products = readJson(PRODUCTS_FILE, []);
+  const id = Number(req.params.id);
+  const index = products.findIndex(item => item.id === id);
+  if (index === -1) return res.status(404).json({ error: 'Product not found.' });
+
+  const current = products[index];
+  const updated = {
+    ...current,
+    name: String(req.body.name ?? current.name).trim(),
+    category: String(req.body.category ?? current.category).trim(),
+    price: toNumber(req.body.price, current.price),
+    oldPrice: req.body.oldPrice === '' || req.body.oldPrice === null || req.body.oldPrice === undefined
+      ? null
+      : toNumber(req.body.oldPrice, current.oldPrice ?? 0),
+    featured: req.body.featured !== undefined ? !!req.body.featured : current.featured,
+    previewUrl: String(req.body.previewUrl ?? current.previewUrl).trim(),
+    image: String(req.body.image ?? current.image).trim(),
+    updatedAt: new Date().toISOString()
+  };
+
+  if (!updated.name || !updated.category || !Number.isFinite(updated.price)) {
+    return res.status(400).json({ error: 'Invalid product data.' });
+  }
+
+  products[index] = updated;
+  const saved = writeJson(PRODUCTS_FILE, products);
+  if (!saved) return res.status(500).json({ error: 'Could not update product.' });
+  res.json(updated);
+});
+
+app.delete('/api/admin/products/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const products = readJson(PRODUCTS_FILE, []);
+  const filtered = products.filter(item => item.id !== id);
+  if (filtered.length === products.length) {
+    return res.status(404).json({ error: 'Product not found.' });
+  }
+  const normalized = filtered.map((item, index) => ({ ...item, order: index + 1 }));
+  const saved = writeJson(PRODUCTS_FILE, normalized);
+  if (!saved) return res.status(500).json({ error: 'Could not delete product.' });
+  res.json({ success: true });
+});
+
+app.put('/api/admin/products/order', (req, res) => {
+  const ids = Array.isArray(req.body.ids) ? req.body.ids.map(Number) : [];
+  if (!ids.length) return res.status(400).json({ error: 'No ids provided.' });
+
+  const products = readJson(PRODUCTS_FILE, []);
+  const orderMap = new Map(ids.map((id, index) => [id, index + 1]));
+  const updated = products.map(item => ({ ...item, order: orderMap.get(item.id) || item.order || 999 }));
+  const saved = writeJson(PRODUCTS_FILE, updated);
+  if (!saved) return res.status(500).json({ error: 'Could not update product order.' });
+  res.json({ success: true });
+});
+
+app.post('/api/orders', (req, res) => {
+  const product = String(req.body.product || '').trim();
+  const customer = String(req.body.customer || '').trim();
+  const email = String(req.body.email || '').trim();
+  const phone = String(req.body.phone || '').trim();
+  const license = String(req.body.license || 'Single Site License').trim();
+  const paymentMethod = String(req.body.paymentMethod || 'Card').trim();
+  const qty = Math.max(1, toNumber(req.body.qty, 1));
+  const price = Math.max(0, toNumber(req.body.price, 0));
+
+  if (!product || !customer || !email) {
+    return res.status(400).json({ error: 'Product, customer, and email are required.' });
+  }
+
+  const orders = readJson(ORDERS_FILE, []);
+  const newOrder = {
+    id: createOrderId(),
+    product,
+    customer,
+    email,
+    phone,
+    license,
+    qty,
+    price,
+    paymentMethod,
+    date: new Date().toISOString()
+  };
+
+  orders.unshift(newOrder);
+  const saved = writeJson(ORDERS_FILE, orders);
+  if (!saved) return res.status(500).json({ error: 'Could not save order.' });
   res.status(201).json(newOrder);
 });
 
-// GET orders (Admin)
 app.get('/api/admin/orders', (req, res) => {
-  const orders = readJSON(ORDERS_FILE);
+  const orders = readJson(ORDERS_FILE, []);
   res.json(orders);
 });
 
-// DELETE order (Admin)
 app.delete('/api/admin/orders/:id', (req, res) => {
-  let orders = readJSON(ORDERS_FILE);
-  orders = orders.filter(o => o.id !== req.params.id && String(o.id) !== String(req.params.id));
-  writeJSON(ORDERS_FILE, orders);
+  const id = String(req.params.id);
+  const orders = readJson(ORDERS_FILE, []);
+  const filtered = orders.filter(item => String(item.id) !== id);
+  if (filtered.length === orders.length) return res.status(404).json({ error: 'Order not found.' });
+  const saved = writeJson(ORDERS_FILE, filtered);
+  if (!saved) return res.status(500).json({ error: 'Could not delete order.' });
   res.json({ success: true });
 });
 
-// POST new product (Admin)
-app.post('/api/admin/products', (req, res) => {
-  const products = readJSON(PRODUCTS_FILE);
-  const maxId = products.length ? Math.max(...products.map(p => p.id)) : 0;
-  const newProduct = {
-    id: maxId + 1,
-    name: req.body.name || 'New Template',
-    category: req.body.category || 'SaaS & AI',
-    price: parseInt(req.body.price) || 49,
-    old: parseInt(req.body.old) || 89,
-    discount: parseInt(req.body.discount) || Math.round((1 - (req.body.price / req.body.old)) * 100) || 0,
-    featured: req.body.featured || false,
-    order: products.length + 1,
-    previewUrl: req.body.previewUrl || 'https://example.com',
-    images: req.body.images || []
-  };
-  products.push(newProduct);
-  writeJSON(PRODUCTS_FILE, products);
-  res.status(201).json(newProduct);
+app.get('/workspace-control-hamza', (req, res) => {
+  res.sendFile(path.join(PUBLIC_DIR, 'admin.html'));
 });
 
-// PUT update product (Admin)
-app.put('/api/admin/products/:id', (req, res) => {
-  const products = readJSON(PRODUCTS_FILE);
-  const index = products.findIndex(p => p.id === parseInt(req.params.id));
-  if (index === -1) return res.status(404).json({ error: 'Not found' });
-  
-  products[index] = {
-    ...products[index],
-    name: req.body.name || products[index].name,
-    category: req.body.category || products[index].category,
-    price: parseInt(req.body.price) || products[index].price,
-    old: parseInt(req.body.old) || products[index].old,
-    discount: req.body.discount !== undefined ? parseInt(req.body.discount) : products[index].discount,
-    featured: req.body.featured !== undefined ? req.body.featured : products[index].featured,
-    previewUrl: req.body.previewUrl || products[index].previewUrl
-  };
-  writeJSON(PRODUCTS_FILE, products);
-  res.json(products[index]);
-});
-
-// POST update product images (Admin)
-app.post('/api/admin/products/:id/images', (req, res) => {
-  const products = readJSON(PRODUCTS_FILE);
-  const index = products.findIndex(p => p.id === parseInt(req.params.id));
-  if (index === -1) return res.status(404).json({ error: 'Not found' });
-  
-  products[index].images = req.body.images || [];
-  writeJSON(PRODUCTS_FILE, products);
-  res.json({ success: true });
-});
-
-// DELETE product (Admin)
-app.delete('/api/admin/products/:id', (req, res) => {
-  let products = readJSON(PRODUCTS_FILE);
-  products = products.filter(p => p.id !== parseInt(req.params.id));
-  writeJSON(PRODUCTS_FILE, products);
-  res.json({ success: true });
-});
-
-// PUT update featured products order (Admin)
-app.put('/api/admin/products/order/update', (req, res) => {
-  const productIds = req.body.productIds || [];
-  const products = readJSON(PRODUCTS_FILE);
-  
-  productIds.forEach((id, index) => {
-    const p = products.find(x => x.id === parseInt(id));
-    if (p) p.order = index + 1;
-  });
-  
-  writeJSON(PRODUCTS_FILE, products);
-  res.json({ success: true });
-});
-
-// Fallback route for HTML pages
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(PUBLIC_DIR, 'index.html'));
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 AURA DIGITAL TEMPLATES server running on port ${PORT}`);
+  console.log(`Aura Digital server running on port ${PORT}`);
 });

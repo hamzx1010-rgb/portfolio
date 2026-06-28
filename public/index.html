@@ -1,885 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AURA DIGITAL — Premium Website & Frontend Templates</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --accent: #ff007f;
-  --accent-bright: #ff1a8c;
-  --accent-glow: rgba(255, 0, 127, 0.45);
-  --cyan: #00f0ff;
-  --cyan-glow: rgba(0, 240, 255, 0.4);
-  --violet: #8b00ff;
-  --bg-dark: #06060f;
-  --bg-card: #0e0e22;
-  --bg-panel: #141432;
-  --border: rgba(255, 255, 255, 0.12);
-  --border-glow: rgba(0, 240, 255, 0.3);
-  --text: #ffffff;
-  --text-muted: #9494b8;
-}
-
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg-dark);
-  color: var(--text);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #030308; }
-::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan), var(--accent)); border-radius: 4px; }
-
-/* NAVBAR */
-.navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(6, 6, 15, 0.85); border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(16px); transition: all 0.3s;
-}
-.nav-inner {
-  max-width: 1400px; margin: 0 auto; padding: 0 2.5rem; height: 75px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.nav-logo {
-  font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.6rem;
-  letter-spacing: 1px; color: var(--text); text-decoration: none; display: flex;
-  align-items: center; gap: 8px;
-}
-.nav-logo span {
-  background: linear-gradient(90deg, var(--cyan), var(--accent));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.nav-logo .logo-dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
-
-.nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
-.nav-links a {
-  color: var(--text-muted); text-decoration: none; font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
-  transition: all 0.2s; position: relative; padding: 0.5rem 0;
-}
-.nav-links a:hover, .nav-links a.active { color: var(--text); }
-.nav-links a.active::after, .nav-links a:hover::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--cyan), var(--accent));
-}
-.nav-admin-btn {
-  background: rgba(139, 0, 255, 0.2); border: 1px solid rgba(139, 0, 255, 0.5) !important;
-  color: #e6b3ff !important; padding: 0.5rem 1rem !important; border-radius: 8px;
-}
-.nav-admin-btn:hover { background: var(--violet); color: #fff !important; box-shadow: 0 0 20px rgba(139,0,255,0.6); }
-
-.nav-actions { display: flex; align-items: center; gap: 1.5rem; }
-.search-box { position: relative; }
-.search-input {
-  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-  padding: 0.6rem 1rem 0.6rem 2.4rem; border-radius: 8px; color: #fff;
-  font-family: inherit; font-size: 0.85rem; width: 220px; transition: all 0.3s;
-  outline: none;
-}
-.search-input:focus { width: 280px; border-color: var(--cyan); box-shadow: 0 0 15px rgba(0,240,255,0.2); }
-.search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.85rem; pointer-events: none; }
-
-/* HERO SECTION */
-.hero {
-  position: relative; min-height: 100vh; padding: 120px 2.5rem 80px;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden; background: radial-gradient(circle at 75% 30%, rgba(139, 0, 255, 0.18) 0%, transparent 60%),
-                              radial-gradient(circle at 25% 70%, rgba(255, 0, 127, 0.15) 0%, transparent 60%);
-}
-.hero-grid-bg {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
-  background-size: 60px 60px; z-index: 1; pointer-events: none;
-}
-.hero-glow-1 { position: absolute; width: 500px; height: 500px; background: var(--cyan); filter: blur(180px); opacity: 0.12; top: 10%; left: 10%; z-index: 1; }
-.hero-glow-2 { position: absolute; width: 600px; height: 600px; background: var(--accent); filter: blur(200px); opacity: 0.15; bottom: 10%; right: 10%; z-index: 1; }
-
-.hero-inner {
-  max-width: 1400px; width: 100%; margin: 0 auto;
-  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center;
-  position: relative; z-index: 2;
-}
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.3);
-  padding: 0.5rem 1.2rem; border-radius: 30px; color: var(--cyan);
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem;
-  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.8rem;
-  box-shadow: 0 0 20px rgba(0,240,255,0.15);
-}
-.hero-eyebrow .pulse-dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; animation: pulse 1.5s infinite; }
-@keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 240, 255, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); } }
-
-.hero-title {
-  font-family: 'Space Grotesk', sans-serif; font-weight: 800;
-  font-size: clamp(3rem, 5.5vw, 5.2rem); line-height: 1.05; letter-spacing: -1.5px;
-  margin-bottom: 1.5rem; text-transform: uppercase;
-}
-.hero-title .neon-text {
-  background: linear-gradient(135deg, var(--cyan) 0%, var(--accent) 50%, var(--violet) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  display: block;
-}
-
-.hero-subtitle {
-  font-size: 1.15rem; color: var(--text-muted); max-width: 600px;
-  margin-bottom: 2.5rem; font-weight: 400;
-}
-
-.hero-btns { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 12px;
-  background: linear-gradient(135deg, var(--accent), #d6006c);
-  color: var(--text); text-decoration: none; font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700; font-size: 0.95rem; letter-spacing: 1.5px; text-transform: uppercase;
-  padding: 1rem 2.2rem; border-radius: 10px; border: none; cursor: pointer;
-  transition: all 0.3s; box-shadow: 0 0 30px var(--accent-glow);
-}
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 45px rgba(255, 0, 127, 0.7); }
-
-.btn-outline {
-  display: inline-flex; align-items: center; gap: 12px;
-  background: rgba(0, 240, 255, 0.05); color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.4);
-  text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-weight: 700;
-  font-size: 0.95rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 1rem 2.2rem;
-  border-radius: 10px; transition: all 0.3s; cursor: pointer;
-}
-.btn-outline:hover { background: rgba(0, 240, 255, 0.15); border-color: var(--cyan); box-shadow: 0 0 25px var(--cyan-glow); transform: translateY(-3px); }
-
-/* HERO VISUAL MOCKUP */
-.hero-mockup { position: relative; }
-.mockup-frame {
-  position: relative; border-radius: 20px; padding: 6px;
-  background: linear-gradient(135deg, rgba(0,240,255,0.5), rgba(255,0,127,0.5), rgba(139,0,255,0.5));
-  box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(139,0,255,0.3);
-  transform: perspective(1000px) rotateY(-8deg) rotateX(4deg);
-  transition: transform 0.5s ease;
-}
-.mockup-frame:hover { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
-.mockup-inner {
-  border-radius: 16px; overflow: hidden; background: #000; aspect-ratio: 16/10;
-  position: relative;
-}
-.mockup-inner img { width: 100%; height: 100%; object-fit: cover; }
-.floating-badge {
-  position: absolute; background: rgba(14, 14, 34, 0.9); border: 1px solid var(--cyan);
-  padding: 0.8rem 1.4rem; border-radius: 12px; backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 20px rgba(0,240,255,0.2);
-  display: flex; align-items: center; gap: 12px; z-index: 3;
-}
-.fb-1 { bottom: -20px; left: -20px; animation: float 4s ease-in-out infinite; }
-.fb-2 { top: -20px; right: -20px; border-color: var(--accent); animation: float 5s ease-in-out infinite 1s; }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-/* TRUST FEATURES STRIP */
-.features-strip {
-  background: rgba(14, 14, 34, 0.6); border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border); padding: 3rem 2.5rem; position: relative; z-index: 3;
-}
-.features-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem; }
-.feature-box { display: flex; align-items: center; gap: 1.2rem; }
-.feature-icon {
-  width: 54px; height: 54px; border-radius: 14px;
-  background: linear-gradient(135deg, rgba(0,240,255,0.15), rgba(255,0,127,0.15));
-  border: 1px solid rgba(0,240,255,0.3); display: flex; align-items: center;
-  justify-content: center; font-size: 1.5rem; color: var(--cyan); flex-shrink: 0;
-}
-.feature-text h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
-.feature-text p { font-size: 0.85rem; color: var(--text-muted); }
-
-/* MARKETPLACE SECTION */
-.marketplace { padding: 7rem 2.5rem; max-width: 1400px; margin: 0 auto; position: relative; z-index: 3; }
-.section-header { text-align: center; max-width: 700px; margin: 0 auto 3.5rem; }
-.section-eyebrow { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.8rem; }
-.section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 1rem; }
-
-/* FLASH BANNER */
-.sale-banner {
-  background: linear-gradient(90deg, rgba(255,0,127,0.15), rgba(139,0,255,0.15), rgba(0,240,255,0.15));
-  border: 1px solid var(--accent); border-radius: 12px; padding: 1.2rem 2rem;
-  margin-bottom: 3rem; display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 1.5rem; box-shadow: 0 0 30px rgba(255,0,127,0.2);
-}
-.sale-banner-left { display: flex; align-items: center; gap: 1.2rem; }
-.fire-icon { font-size: 2rem; animation: shake 1s infinite alternate; }
-@keyframes shake { 0% { transform: rotate(-10deg) scale(1); } 100% { transform: rotate(10deg) scale(1.1); } }
-.sale-banner h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--text); }
-.sale-banner p { color: #ffb3d9; font-size: 0.9rem; }
-.timer-box { display: flex; align-items: center; gap: 10px; }
-.timer-unit { background: rgba(0,0,0,0.6); border: 1px solid var(--accent); padding: 0.6rem 1rem; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--cyan); min-width: 50px; text-align: center; }
-
-/* FILTER BAR */
-.filter-bar { display: flex; align-items: center; justify-content: center; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
-.filter-btn {
-  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-  color: var(--text-muted); padding: 0.75rem 1.6rem; border-radius: 30px;
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem;
-  letter-spacing: 1px; cursor: pointer; transition: all 0.3s; text-transform: uppercase;
-}
-.filter-btn:hover { background: rgba(255,255,255,0.08); color: var(--text); }
-.filter-btn.active {
-  background: linear-gradient(135deg, var(--cyan), #00a3cc); border-color: var(--cyan);
-  color: #000; font-weight: 800; box-shadow: 0 0 20px rgba(0,240,255,0.4);
-}
-
-/* TEMPLATES GRID */
-.templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 2.5rem; }
-.tpl-card {
-  background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px;
-  overflow: hidden; position: relative; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex; flex-direction: column;
-}
-.tpl-card::before {
-  content: ''; position: absolute; inset: -1px; border-radius: 18px; padding: 1px;
-  background: linear-gradient(135deg, var(--cyan), var(--accent), var(--violet));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.4s;
-  pointer-events: none;
-}
-.tpl-card:hover::before { opacity: 1; }
-.tpl-card:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 35px rgba(0,240,255,0.15); }
-
-.tpl-img-wrap {
-  width: 100%; aspect-ratio: 16/10; overflow: hidden; position: relative;
-  background: #080814; border-bottom: 1px solid var(--border);
-}
-.tpl-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-.tpl-card:hover .tpl-img-wrap img { transform: scale(1.06); }
-.tpl-preview-overlay {
-  position: absolute; inset: 0; background: rgba(6, 6, 15, 0.75); backdrop-filter: blur(6px);
-  display: flex; align-items: center; justify-content: center; gap: 1rem;
-  opacity: 0; transition: opacity 0.3s ease;
-}
-.tpl-card:hover .tpl-preview-overlay { opacity: 1; }
-.overlay-btn {
-  background: var(--cyan); color: #000; font-family: 'Space Grotesk', sans-serif;
-  font-weight: 800; font-size: 0.8rem; padding: 0.6rem 1.2rem; border-radius: 8px;
-  text-decoration: none; letter-spacing: 1px; text-transform: uppercase;
-  transition: transform 0.2s; box-shadow: 0 0 20px rgba(0,240,255,0.5);
-}
-.overlay-btn:hover { transform: scale(1.05); }
-
-.tpl-discount-badge {
-  position: absolute; top: 14px; right: 14px; background: var(--accent); color: #fff;
-  font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 0.75rem;
-  padding: 4px 10px; border-radius: 6px; z-index: 2; box-shadow: 0 4px 15px rgba(255,0,127,0.5);
-}
-
-.tpl-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-.tpl-cat { color: var(--cyan); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.4rem; }
-.tpl-title { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.25rem; color: var(--text); margin-bottom: 1rem; line-height: 1.3; }
-
-.tpl-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.85rem; }
-.tpl-meta i { color: var(--cyan); }
-
-.tpl-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.08); margin-top: auto; }
-.tpl-price-wrap { display: flex; align-items: baseline; gap: 8px; }
-.tpl-price { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.6rem; color: var(--text); }
-.tpl-old { color: #666688; text-decoration: line-through; font-size: 0.95rem; }
-
-.btn-buy {
-  background: linear-gradient(135deg, var(--accent), #cc0066); color: #fff;
-  border: none; padding: 0.75rem 1.4rem; border-radius: 8px; font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
-  cursor: pointer; transition: all 0.3s; box-shadow: 0 0 20px rgba(255,0,127,0.3);
-}
-.btn-buy:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(255,0,127,0.6); }
-
-/* CHECKOUT MODAL */
-.modal-backdrop {
-  position: fixed; inset: 0; background: rgba(3, 3, 10, 0.88); z-index: 5000;
-  display: flex; align-items: center; justify-content: center; padding: 1.5rem;
-  opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(12px);
-}
-.modal-backdrop.show { opacity: 1; pointer-events: auto; }
-.checkout-modal {
-  background: var(--bg-panel); border: 1px solid var(--cyan); border-radius: 20px;
-  width: 100%; max-width: 540px; padding: 2.5rem; position: relative;
-  box-shadow: 0 0 60px rgba(0,240,255,0.25);
-}
-.modal-close { position: absolute; top: 1.5rem; right: 1.5rem; background: transparent; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
-.modal-close:hover { color: var(--accent); }
-
-.checkout-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
-.checkout-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
-
-.order-preview-box {
-  background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 12px;
-  padding: 1.2rem; margin-bottom: 1.8rem; display: flex; align-items: center; justify-content: space-between;
-}
-.op-title { font-weight: 700; color: var(--cyan); font-size: 1.05rem; }
-.op-price { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--accent); }
-
-.license-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.8rem; }
-.lic-card {
-  border: 1px solid var(--border); border-radius: 10px; padding: 1rem;
-  cursor: pointer; transition: all 0.2s; background: rgba(255,255,255,0.02);
-}
-.lic-card:hover { border-color: rgba(0,240,255,0.4); }
-.lic-card.selected { border-color: var(--cyan); background: rgba(0,240,255,0.1); box-shadow: 0 0 15px rgba(0,240,255,0.2); }
-.lic-card h5 { font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; color: var(--text); margin-bottom: 4px; }
-.lic-card p { font-size: 0.75rem; color: var(--text-muted); }
-
-.form-group { margin-bottom: 1.4rem; }
-.form-label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-.form-input {
-  width: 100%; padding: 0.9rem 1.2rem; background: rgba(0,0,0,0.6);
-  border: 1px solid var(--border); color: #fff; font-family: inherit; font-size: 0.95rem;
-  border-radius: 8px; outline: none; transition: border-color 0.3s;
-}
-.form-input:focus { border-color: var(--cyan); }
-
-.payment-methods { display: flex; gap: 10px; margin-bottom: 2rem; }
-.pay-m {
-  flex: 1; padding: 0.8rem; text-align: center; border: 1px solid var(--border);
-  border-radius: 8px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
-  cursor: pointer; transition: all 0.2s;
-}
-.pay-m.active { border-color: var(--accent); color: var(--text); background: rgba(255,0,127,0.15); }
-
-/* SUCCESS MODAL VIEW */
-.success-view { text-align: center; padding: 2rem 0; display: none; }
-.success-icon { width: 80px; height: 80px; background: rgba(0,240,255,0.15); border: 2px solid var(--cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--cyan); margin: 0 auto 1.5rem; box-shadow: 0 0 30px rgba(0,240,255,0.4); }
-
-/* TOAST */
-.toast {
-  position: fixed; bottom: 30px; right: 30px; background: var(--bg-panel);
-  border: 1px solid var(--cyan); color: #fff; padding: 1rem 1.8rem; border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 20px rgba(0,240,255,0.3);
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem;
-  z-index: 9999; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex; align-items: center; gap: 12px;
-}
-.toast.show { transform: translateY(0); opacity: 1; }
-
-/* FOOTER */
-.footer { background: #04040a; border-top: 1px solid var(--border); padding: 5rem 2.5rem 3rem; margin-top: 6rem; position: relative; z-index: 3; }
-.footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; }
-.footer-about p { color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem; max-width: 320px; }
-.footer-col h5 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 800; color: var(--cyan); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.5rem; }
-.footer-links { list-style: none; }
-.footer-links li { margin-bottom: 0.8rem; }
-.footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
-.footer-links a:hover { color: var(--accent); }
-
-.footer-bottom { max-width: 1400px; margin: 0 auto; padding-top: 2.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; color: var(--text-muted); font-size: 0.85rem; }
-
-@media (max-width: 900px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
-  .hero-eyebrow { margin: 0 auto 1.5rem; }
-  .hero-subtitle { margin: 0 auto 2.5rem; }
-  .hero-btns { justify-content: center; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-  .nav-links { display: none; }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura Digital — Premium Website Templates</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--accent:#ff007f;--accent-glow:rgba(255,0,127,.45);--cyan:#00f0ff;--violet:#8b00ff;--bg-dark:#06060f;--bg-card:#0e0e22;--bg-panel:#141432;--border:rgba(255,255,255,.12);--text:#fff;--text-muted:#9494b8}
+    html{scroll-behavior:smooth}body{background:var(--bg-dark);color:var(--text);font-family:'Plus Jakarta Sans','Cairo',sans-serif;overflow-x:hidden;line-height:1.6}body.rtl{font-family:'Cairo','Plus Jakarta Sans',sans-serif}
+    a{text-decoration:none;color:inherit}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#030308}::-webkit-scrollbar-thumb{background:linear-gradient(var(--cyan),var(--accent));border-radius:4px}
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,6,15,.88);border-bottom:1px solid var(--border);backdrop-filter:blur(16px)}.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}.nav-logo{font-weight:800;font-size:1.5rem;display:flex;align-items:center;gap:8px}.nav-logo span{background:linear-gradient(90deg,var(--cyan),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+    .nav-links{display:flex;align-items:center;gap:1.6rem;list-style:none}.nav-links a{color:var(--text-muted);font-weight:700;font-size:.9rem;letter-spacing:1px;text-transform:uppercase}.nav-links a:hover,.nav-links a.active{color:var(--text)}.nav-actions{display:flex;align-items:center;gap:12px}.lang-switcher{display:flex;gap:8px;flex-wrap:wrap}.lang-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text-muted);padding:.55rem .9rem;border-radius:999px;font-weight:700;cursor:pointer}.lang-btn.active,.lang-btn:hover{background:linear-gradient(135deg,var(--cyan),#00a3cc);border-color:var(--cyan);color:#000}.nav-admin-btn{background:rgba(139,0,255,.18);border:1px solid rgba(139,0,255,.45);color:#e6b3ff;padding:.65rem 1rem;border-radius:10px;font-weight:700}
+    .hero{position:relative;min-height:100vh;padding:120px 2rem 80px;display:flex;align-items:center;overflow:hidden;background:radial-gradient(circle at 75% 30%, rgba(139,0,255,.18) 0%, transparent 60%),radial-gradient(circle at 25% 70%, rgba(255,0,127,.15) 0%, transparent 60%)}.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,240,255,.04) 1px, transparent 1px),linear-gradient(90deg, rgba(0,240,255,.04) 1px, transparent 1px);background-size:60px 60px;z-index:1;pointer-events:none}.hero-glow-1{position:absolute;width:500px;height:500px;background:var(--cyan);filter:blur(180px);opacity:.12;top:10%;left:10%;z-index:1}.hero-glow-2{position:absolute;width:600px;height:600px;background:var(--accent);filter:blur(200px);opacity:.15;bottom:10%;right:10%;z-index:1}
+    .hero-inner{max-width:1400px;width:100%;margin:0 auto;display:grid;grid-template-columns:1.08fr .92fr;gap:4rem;align-items:center;position:relative;z-index:2}.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(0,240,255,.1);border:1px solid rgba(0,240,255,.3);padding:.5rem 1.2rem;border-radius:30px;color:var(--cyan);font-weight:700;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:1.8rem}.pulse-dot{width:8px;height:8px;background:var(--cyan);border-radius:50%}.hero-title{font-weight:800;font-size:clamp(3rem,5.5vw,5.2rem);line-height:1.05;letter-spacing:-1.5px;margin-bottom:1.4rem;text-transform:uppercase}.hero-title .neon-text{background:linear-gradient(135deg,var(--cyan) 0%,var(--accent) 50%,var(--violet) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block}.hero-subtitle{font-size:1.1rem;color:var(--text-muted);max-width:650px;margin-bottom:2rem}.hero-btns{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}.btn-primary{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--accent),#d6006c);color:#fff;font-weight:700;font-size:.95rem;letter-spacing:1.4px;text-transform:uppercase;padding:1rem 2rem;border-radius:10px;border:none;cursor:pointer;box-shadow:0 0 30px var(--accent-glow)}.btn-outline{display:inline-flex;align-items:center;gap:12px;background:rgba(0,240,255,.05);color:var(--cyan);border:1px solid rgba(0,240,255,.4);font-weight:700;font-size:.95rem;letter-spacing:1.4px;text-transform:uppercase;padding:1rem 2rem;border-radius:10px;cursor:pointer}.local-pay-box{margin-top:1.5rem;background:linear-gradient(90deg,rgba(255,0,127,.12),rgba(139,0,255,.12),rgba(0,240,255,.12));border:1px solid rgba(255,0,127,.26);border-radius:14px;padding:1rem 1.2rem;color:#ffd8ea}
+    .hero-mockup{position:relative}.mockup-frame{position:relative;border-radius:20px;padding:6px;background:linear-gradient(135deg, rgba(0,240,255,.5), rgba(255,0,127,.5), rgba(139,0,255,.5));box-shadow:0 30px 80px rgba(0,0,0,.8), 0 0 60px rgba(139,0,255,.3)}.mockup-inner{border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/10}.mockup-inner img{width:100%;height:100%;object-fit:cover}.floating-badge{position:absolute;background:rgba(14,14,34,.92);border:1px solid var(--cyan);padding:.8rem 1.3rem;border-radius:12px;backdrop-filter:blur(10px);display:flex;align-items:center;gap:12px;z-index:3}.fb-1{bottom:-20px;left:-20px}.fb-2{top:-20px;right:-20px;border-color:var(--accent)}
+    .features-strip{background:rgba(14,14,34,.6);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 2rem}.features-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.8rem}.feature-box{display:flex;align-items:center;gap:1rem}.feature-icon{width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg, rgba(0,240,255,.15), rgba(255,0,127,.15));border:1px solid rgba(0,240,255,.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--cyan)}
+    .marketplace{padding:6rem 2rem;max-width:1400px;margin:0 auto}.section-header{text-align:center;max-width:800px;margin:0 auto 3rem}.section-eyebrow{color:var(--accent);font-weight:700;font-size:.85rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:.8rem}.section-title{font-size:clamp(2.2rem,4vw,3.2rem);font-weight:800;letter-spacing:-1px;text-transform:uppercase;margin-bottom:1rem}.search-wrap{max-width:500px;margin:0 auto 1.2rem}.search-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);padding:.95rem 1rem;border-radius:12px;color:#fff;font-size:.95rem;outline:none}.filter-bar{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;margin-bottom:2.5rem}.filter-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text-muted);padding:.75rem 1.4rem;border-radius:30px;font-weight:700;font-size:.85rem;letter-spacing:1px;cursor:pointer;text-transform:uppercase}.filter-btn.active,.filter-btn:hover{background:linear-gradient(135deg,var(--cyan),#00a3cc);border-color:var(--cyan);color:#000}
+    .templates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem}.tpl-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:.3s}.tpl-card:hover{transform:translateY(-6px);box-shadow:0 25px 60px rgba(0,0,0,.8),0 0 35px rgba(0,240,255,.15)}.tpl-img-wrap{width:100%;aspect-ratio:16/10;overflow:hidden;position:relative;background:#080814;border-bottom:1px solid var(--border)}.tpl-img-wrap img{width:100%;height:100%;object-fit:cover}.tpl-discount-badge{position:absolute;top:14px;right:14px;background:var(--accent);color:#fff;font-weight:800;font-size:.75rem;padding:4px 10px;border-radius:6px}.tpl-body{padding:1.6rem;flex:1;display:flex;flex-direction:column;justify-content:space-between}.tpl-cat{color:var(--cyan);font-weight:700;font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem}.tpl-title{font-weight:800;font-size:1.2rem;margin-bottom:1rem}.tpl-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem;color:var(--text-muted);font-size:.85rem}.tpl-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:1rem;border-top:1px solid rgba(255,255,255,.08)}.tpl-price-wrap{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.tpl-price{font-weight:800;font-size:1.5rem}.tpl-old{color:#666688;text-decoration:line-through;font-size:.95rem}.btn-buy{background:linear-gradient(135deg,var(--accent),#cc0066);color:#fff;border:none;padding:.8rem 1.3rem;border-radius:8px;font-weight:700;font-size:.85rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer}.overlay-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(0,240,255,.08);border:1px solid rgba(0,240,255,.35);color:var(--cyan);padding:.65rem 1rem;border-radius:8px;font-weight:700;font-size:.8rem;text-transform:uppercase}
+    .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.4rem}.step-card,.trust-card,.testi-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:1.5rem}.step-num{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--violet));display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:1rem}.trust-grid,.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem}.cta-final{background:linear-gradient(135deg,rgba(255,0,127,.12),rgba(139,0,255,.16),rgba(0,240,255,.12));border:1px solid rgba(255,0,127,.25);border-radius:24px;padding:2rem;text-align:center}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(3,3,10,.88);z-index:5000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s ease;backdrop-filter:blur(12px)}.modal-backdrop.show{opacity:1;pointer-events:auto}.checkout-modal{background:var(--bg-panel);border:1px solid var(--cyan);border-radius:20px;width:100%;max-width:560px;padding:2rem;position:relative;box-shadow:0 0 60px rgba(0,240,255,.25)}.modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer}.checkout-title{font-size:1.6rem;font-weight:800;color:var(--text);margin-bottom:.5rem}.checkout-sub{color:var(--text-muted);font-size:.92rem;margin-bottom:1.6rem}.order-preview-box{background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.4rem;display:flex;align-items:center;justify-content:space-between;gap:10px}.op-title{font-weight:700;color:var(--cyan);font-size:1rem}.op-price{font-weight:800;font-size:1.3rem;color:var(--accent)}.license-options{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}.lic-card{border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;background:rgba(255,255,255,.02)}.lic-card.selected{border-color:var(--cyan);background:rgba(0,240,255,.1)}.lic-card h5{font-size:.9rem;margin-bottom:4px}.lic-card p{font-size:.75rem;color:var(--text-muted)}.form-group{margin-bottom:1rem}.form-label{display:block;font-size:.8rem;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}.form-input,.form-select{width:100%;padding:.9rem 1rem;background:rgba(0,0,0,.6);border:1px solid var(--border);color:#fff;font-size:.95rem;border-radius:8px;outline:none}.dzd-note{background:rgba(255,255,255,.03);border:1px solid var(--border);padding:.85rem 1rem;border-radius:12px;color:#d7d7ef;font-size:.9rem;margin-bottom:1rem}.success-view{text-align:center;padding:1.2rem 0;display:none}.success-icon{width:78px;height:78px;background:rgba(0,240,255,.15);border:2px solid var(--cyan);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:var(--cyan);margin:0 auto 1.3rem}
+    .toast{position:fixed;bottom:30px;right:30px;background:var(--bg-panel);border:1px solid var(--cyan);color:#fff;padding:1rem 1.4rem;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.8),0 0 20px rgba(0,240,255,.3);font-weight:700;font-size:.9rem;z-index:9999;transform:translateY(100px);opacity:0;transition:.3s}.toast.show{transform:translateY(0);opacity:1}
+    .footer{background:#04040a;border-top:1px solid var(--border);padding:4.5rem 2rem 2rem;margin-top:4rem}.footer-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:3rem;margin-bottom:3rem}.footer-about p{color:var(--text-muted);font-size:.9rem;margin-top:1rem;max-width:340px}.footer-col h5{font-size:1rem;font-weight:800;color:var(--cyan);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1.2rem}.footer-links{list-style:none}.footer-links li{margin-bottom:.8rem}.footer-links a{color:var(--text-muted);font-size:.9rem}.footer-bottom{max-width:1400px;margin:0 auto;padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;color:var(--text-muted);font-size:.85rem}
+    @media(max-width:980px){.hero-inner{grid-template-columns:1fr;gap:3rem;text-align:center}.hero-subtitle{margin-inline:auto}.hero-btns{justify-content:center}.hero-eyebrow{margin-inline:auto}.footer-grid{grid-template-columns:1fr 1fr}.nav-links{display:none}}
+    @media(max-width:720px){.nav-inner{padding:0 1rem;height:auto;min-height:76px;flex-wrap:wrap;padding-block:12px}.hero{padding:130px 1rem 60px}.marketplace,.footer,.features-strip{padding-left:1rem;padding-right:1rem}.templates-grid,.license-options,.footer-grid{grid-template-columns:1fr}.floating-badge{display:none}.hero-title{font-size:2.5rem}.toast{right:12px;left:12px;bottom:12px}}
+  </style>
 </head>
-<body>
-
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <span class="logo-dot"></span> AURA <span>DIGITAL</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#home" class="active">HOME</a></li>
-      <li><a href="#templates">TEMPLATES</a></li>
-      <li><a href="#features">WHY US</a></li>
-    </ul>
-    <div class="nav-actions">
-      <div class="search-box">
-        <i class="fas fa-search search-icon"></i>
-        <input type="text" class="search-input" placeholder="Search templates..." id="searchInput" oninput="filterSearch()">
-      </div>
+<body class="rtl">
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo"><span class="logo-dot"></span> AURA <span>DIGITAL</span></a>
+      <ul class="nav-links"><li><a href="#home" class="active" data-i="navHome">HOME</a></li><li><a href="#templates" data-i="navTemplates">TEMPLATES</a></li><li><a href="#why" data-i="navWhy">WHY US</a></li></ul>
+      <div class="nav-actions"><div class="lang-switcher"><button class="lang-btn" data-lang="en">EN</button><button class="lang-btn" data-lang="fr">FR</button><button class="lang-btn active" data-lang="ar">AR</button></div></div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow-1"></div>
-  <div class="hero-glow-2"></div>
-
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <span class="pulse-dot"></span> ⚡ NEXT-GEN FRONTEND TEMPLATES
-      </div>
-      <h1 class="hero-title">
-        PREMIUM WEBSITE <span class="neon-text">TEMPLATES</span>
-      </h1>
-      <p class="hero-subtitle">
-        Elevate your online presence with ultra-modern UI architectures. Built for Next.js, React, Vue, and Tailwind CSS. Designed for success, responsive, and easily customizable.
-      </p>
-      <div class="hero-btns">
-        <a href="#templates" class="btn-primary">EXPLORE TEMPLATES <i class="fas fa-arrow-right"></i></a>
-        <a href="#templates" class="btn-outline"><i class="fas fa-desktop"></i> LIVE SHOWCASE</a>
-      </div>
-    </div>
-
-    <div class="hero-mockup">
-      <div class="mockup-frame">
-        <div class="mockup-inner">
-          <img src="images/hero-promo.png" alt="Aura Digital Promo Showcase" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80'">
-        </div>
-      </div>
-      <div class="floating-badge fb-1">
-        <i class="fas fa-check-circle" style="color:var(--cyan); font-size:1.4rem;"></i>
-        <div>
-          <strong style="display:block; font-family:'Space Grotesk'; font-size:0.85rem;">100% Responsive</strong>
-          <span style="font-size:0.75rem; color:var(--text-muted)">Mobile & Tablet Ready</span>
-        </div>
-      </div>
-      <div class="floating-badge fb-2">
-        <i class="fas fa-code" style="color:var(--accent); font-size:1.4rem;"></i>
-        <div>
-          <strong style="display:block; font-family:'Space Grotesk'; font-size:0.85rem;">Clean Architecture</strong>
-          <span style="font-size:0.75rem; color:var(--text-muted)">Tailwind & TypeScript</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TRUST FEATURES -->
-<div class="features-strip" id="features">
-  <div class="features-grid">
-    <div class="feature-box">
-      <div class="feature-icon"><i class="fab fa-react"></i></div>
-      <div class="feature-text">
-        <h4>React & Tailwind Ready</h4>
-        <p>Production-grade codebases built with modern web standards.</p>
-      </div>
-    </div>
-    <div class="feature-box">
-      <div class="feature-icon" style="color:var(--accent); border-color: rgba(255,0,127,0.3)"><i class="fab fa-figma"></i></div>
-      <div class="feature-text">
-        <h4>Figma Design Files</h4>
-        <p>Editable UI design tokens and complete component libraries included.</p>
-      </div>
-    </div>
-    <div class="feature-box">
-      <div class="feature-icon" style="color:var(--violet); border-color: rgba(139,0,255,0.3)"><i class="fas fa-mobile-alt"></i></div>
-      <div class="feature-text">
-        <h4>100% Responsive</h4>
-        <p>Flawless rendering across retina displays, laptops, tablets, and phones.</p>
-      </div>
-    </div>
-    <div class="feature-box">
-      <div class="feature-icon" style="color:#00ff88; border-color: rgba(0,255,136,0.3)"><i class="fas fa-sync"></i></div>
-      <div class="feature-text">
-        <h4>Lifetime Updates</h4>
-        <p>One-time purchase gives you free lifetime updates and priority tech support.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MARKETPLACE -->
-<section class="marketplace" id="templates">
-  <div class="section-header">
-    <div class="section-eyebrow">CURATED TEMPLATE CATALOG</div>
-    <h2 class="section-title">EXPLORE OUR TEMPLATES</h2>
-    <p style="color:var(--text-muted)">Select from our high-converting frontend solutions designed specifically for SaaS founders, creative agencies, and modern web developers.</p>
-  </div>
-
-  <!-- FLASH SALE BANNER -->
-  <div class="sale-banner">
-    <div class="sale-banner-left">
-      <span class="fire-icon">🔥</span>
+  <section class="hero" id="home">
+    <div class="hero-grid-bg"></div><div class="hero-glow-1"></div><div class="hero-glow-2"></div>
+    <div class="hero-inner">
       <div>
-        <h3>SUMMER DEVELOPER DROP</h3>
-        <p>Get up to 45% off unlimited agency licenses during this weekly flash sale.</p>
+        <div class="hero-eyebrow"><span class="pulse-dot"></span><span data-i="heroEyebrow">⚡ NEXT-GEN FRONTEND TEMPLATES</span></div>
+        <h1 class="hero-title"><span data-i="heroTitle1">PREMIUM WEBSITE</span> <span class="neon-text" data-i="heroTitle2">TEMPLATES</span></h1>
+        <p class="hero-subtitle" data-i="heroSubtitle">Elevate your online presence with ultra-modern UI architectures. Built for Next.js, React, Vue, and Tailwind CSS. Designed for success, responsive, and easily customizable.</p>
+        <div class="hero-btns"><a href="#templates" class="btn-primary" data-i="heroBtn1">EXPLORE TEMPLATES</a><a href="https://portfolio-qt1r.onrender.com/" target="_blank" class="btn-outline" data-i="heroBtn2">LIVE SHOWCASE</a></div>
+        <div class="local-pay-box" data-i="localPay">AURA DIGITAL × CCP — Now you can pay with eCCP instead of the old-fashioned way. BaridiMob also available. All prices are shown in DZD.</div>
+      </div>
+      <div class="hero-mockup">
+        <div class="mockup-frame"><div class="mockup-inner"><img src="images/hero-promo.png" alt="Aura Digital Promo Showcase" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80'"></div></div>
+        <div class="floating-badge fb-1"><div><strong data-i="badge1t">100% Responsive</strong><br><span style="font-size:.75rem;color:var(--text-muted)" data-i="badge1d">Mobile & Tablet Ready</span></div></div>
+        <div class="floating-badge fb-2"><div><strong data-i="badge2t">Clean Architecture</strong><br><span style="font-size:.75rem;color:var(--text-muted)" data-i="badge2d">Tailwind & TypeScript</span></div></div>
       </div>
     </div>
-    <div class="timer-box">
-      <div class="timer-unit" id="t-hours">14</div>:
-      <div class="timer-unit" id="t-mins">28</div>:
-      <div class="timer-unit" id="t-secs">49</div>
-    </div>
-  </div>
+  </section>
 
-  <!-- CATEGORY FILTER -->
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterCategory('ALL', this)">ALL TEMPLATES</button>
-    <button class="filter-btn" onclick="filterCategory('SaaS & AI', this)">SAAS & AI</button>
-    <button class="filter-btn" onclick="filterCategory('Dashboard', this)">DASHBOARDS</button>
-    <button class="filter-btn" onclick="filterCategory('Portfolio', this)">PORTFOLIO</button>
-    <button class="filter-btn" onclick="filterCategory('E-Commerce', this)">E-COMMERCE</button>
-    <button class="filter-btn" onclick="filterCategory('Landing Pages', this)">LANDING PAGES</button>
-  </div>
-
-  <!-- GRID -->
-  <div class="templates-grid" id="templatesGrid">
-    Loading marketplace templates...
-  </div>
-</section>
-
-<!-- CHECKOUT MODAL -->
-<div class="modal-backdrop" id="checkoutModal">
-  <div class="checkout-modal">
-    <button class="modal-close" onclick="closeCheckout()">✕</button>
-    
-    <div id="checkoutFormView">
-      <h3 class="checkout-title">GET TEMPLATE ACCESS</h3>
-      <p class="checkout-sub">Instant download & license delivery sent directly to your inbox.</p>
-
-      <div class="order-preview-box">
-        <div>
-          <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">SELECTED ITEM</span>
-          <div class="op-title" id="chkProductTitle">Aura AI Template</div>
-        </div>
-        <div class="op-price" id="chkPrice">$79</div>
-      </div>
-
-      <label class="form-label">CHOOSE LICENSE TIER</label>
-      <div class="license-options">
-        <div class="lic-card selected" id="licSingle" onclick="selectLicense('Single Site', 0)">
-          <h5>Single Site License</h5>
-          <p>For 1 personal or client project. Standard support.</p>
-        </div>
-        <div class="lic-card" id="licAgency" onclick="selectLicense('Unlimited Agency', 40)">
-          <h5>Unlimited Agency (+ $40)</h5>
-          <p>Unlimited client commercial sites. Priority VIP support.</p>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">YOUR FULL NAME</label>
-        <input type="text" class="form-input" id="chkName" placeholder="Alex Rivera">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">EMAIL ADDRESS (FOR DOWNLOAD KEY)</label>
-        <input type="email" class="form-input" id="chkEmail" placeholder="alex@techdev.io">
-      </div>
-
-      <label class="form-label">PAYMENT METHOD</label>
-      <div class="payment-methods">
-        <div class="pay-m active" onclick="selectPay(this)"><i class="fas fa-credit-card"></i> Card</div>
-        <div class="pay-m" onclick="selectPay(this)"><i class="fab fa-paypal"></i> PayPal</div>
-        <div class="pay-m" onclick="selectPay(this)"><i class="fab fa-ethereum"></i> Crypto</div>
-      </div>
-
-      <button class="btn-primary" style="width:100%; justify-content:center; padding:1.1rem; font-size:1rem;" onclick="processOrder()">
-        <i class="fas fa-lock"></i> COMPLETE PURCHASE (<span id="chkTotalBtn">$79</span>)
-      </button>
-    </div>
-
-    <!-- SUCCESS VIEW -->
-    <div class="success-view" id="checkoutSuccessView">
-      <div class="success-icon"><i class="fas fa-check"></i></div>
-      <h3 class="checkout-title">PURCHASE CONFIRMED!</h3>
-      <p style="color:var(--text-muted); margin:1rem 0 2rem;">
-        Welcome to the next level of frontend design. Your download link, repository invite, and license key have been dispatched to your email address.
-      </p>
-      <button class="btn-outline" style="width:100%; justify-content:center;" onclick="closeCheckout()">BACK TO MARKETPLACE</button>
-    </div>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toastBox">
-  <i class="fas fa-bell" style="color:var(--cyan)"></i>
-  <span id="toastMsg">Notification text</span>
-</div>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-about">
-      <a href="#" class="nav-logo">
-        <span class="logo-dot"></span> AURA <span>DIGITAL</span>
-      </a>
-      <p>The premier global destination for production-ready frontend website templates. Engineered with precision for founders and creative agencies.</p>
-    </div>
-    <div class="footer-col">
-      <h5>TEMPLATES</h5>
-      <ul class="footer-links">
-        <li><a href="#templates">Next.js SaaS UI</a></li>
-        <li><a href="#templates">Tailwind Dashboards</a></li>
-        <li><a href="#templates">Creative Portfolios</a></li>
-        <li><a href="#templates">E-Commerce Storefronts</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h5>RESOURCES</h5>
-      <ul class="footer-links">
-        <li><a href="#templates">Documentation</a></li>
-        <li><a href="#templates">Figma UI Kits</a></li>
-        <li><a href="#templates">Changelog</a></li>
-        <li><a href="#templates">Support Desk</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h5>STAY IN THE LOOP</h5>
-      <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">Subscribe to get early drops and weekly developer discounts.</p>
-      <div style="display:flex; gap:8px;">
-        <input type="email" class="form-input" placeholder="developer@code.io" style="padding:0.6rem 1rem;">
-        <button class="btn-buy" onclick="showToast('🎉 Subscribed to Aura drops!')">JOIN</button>
-      </div>
+  <div class="features-strip">
+    <div class="features-grid">
+      <div class="feature-box"><div class="feature-icon">✓</div><div><strong data-i="feat1t">Responsive</strong><br><span style="color:var(--text-muted)" data-i="feat1d">Works on all screens</span></div></div>
+      <div class="feature-box"><div class="feature-icon">✦</div><div><strong data-i="feat2t">Editable</strong><br><span style="color:var(--text-muted)" data-i="feat2d">Easy to customize later</span></div></div>
+      <div class="feature-box"><div class="feature-icon">⚡</div><div><strong data-i="feat3t">Modern Stack</strong><br><span style="color:var(--text-muted)" data-i="feat3d">Built for premium brands</span></div></div>
+      <div class="feature-box"><div class="feature-icon">DZD</div><div><strong data-i="feat4t">Simple Payment</strong><br><span style="color:var(--text-muted)" data-i="feat4d">Card, CCP, BaridiMob</span></div></div>
     </div>
   </div>
 
-  <div class="footer-bottom">
-    <p>© 2026 AURA DIGITAL INC. ALL RIGHTS RESERVED.</p>
-    <div style="display:flex; gap:1.5rem; font-size:1.2rem; color:var(--text-muted);">
-      <a href="#" style="color:inherit;"><i class="fab fa-github"></i></a>
-      <a href="#" style="color:inherit;"><i class="fab fa-twitter"></i></a>
-      <a href="#" style="color:inherit;"><i class="fab fa-discord"></i></a>
+  <section class="marketplace" id="templates">
+    <div class="section-header"><div class="section-eyebrow" data-i="catalogEyebrow">CURATED TEMPLATE CATALOG</div><h2 class="section-title" data-i="catalogTitle">EXPLORE OUR TEMPLATES</h2><p style="color:var(--text-muted)" data-i="catalogDesc">Select from our high-converting frontend solutions designed specifically for SaaS founders, creative agencies, and modern web developers.</p></div>
+    <div class="search-wrap"><input type="text" class="search-input" id="searchInput" data-ph="searchPlaceholder" placeholder="Search templates..."></div>
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="templates-grid" id="templatesGrid"></div>
+  </section>
+
+  <section class="marketplace">
+    <div class="section-header"><div class="section-eyebrow" data-i="howEyebrow">HOW IT WORKS</div><h2 class="section-title" data-i="howTitle">SIMPLE ORDER FLOW</h2></div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-num">1</div><h3 data-i="step1t">Choose template</h3><p style="color:var(--text-muted)" data-i="step1d">Browse the catalog and pick the style that matches your brand.</p></div>
+      <div class="step-card"><div class="step-num">2</div><h3 data-i="step2t">Place order</h3><p style="color:var(--text-muted)" data-i="step2d">Select your license and submit your details in a few seconds.</p></div>
+      <div class="step-card"><div class="step-num">3</div><h3 data-i="step3t">Receive access</h3><p style="color:var(--text-muted)" data-i="step3d">We confirm the order and send your template access details.</p></div>
+      <div class="step-card"><div class="step-num">4</div><h3 data-i="step4t">Customize later</h3><p style="color:var(--text-muted)" data-i="step4d">Use it as-is or adapt it later for your project or client.</p></div>
+    </div>
+  </section>
+
+  <section class="marketplace" id="why">
+    <div class="section-header"><div class="section-eyebrow" data-i="whyEyebrow">WHY AURA DIGITAL</div><h2 class="section-title" data-i="whyTitle">BUILT FOR MODERN BRANDS</h2></div>
+    <div class="trust-grid">
+      <div class="trust-card"><h3 data-i="why1t">Premium Positioning</h3><p style="color:var(--text-muted)" data-i="why1d">Every template is crafted to make your brand look polished, modern, and expensive.</p></div>
+      <div class="trust-card"><h3 data-i="why2t">Editable Structure</h3><p style="color:var(--text-muted)" data-i="why2d">Clean sections and reusable layout so you can customize after purchase.</p></div>
+      <div class="trust-card"><h3 data-i="why3t">Flexible Payment</h3><p style="color:var(--text-muted)" data-i="why3d">DZD pricing with support for card, PayPal, crypto, CCP, and BaridiMob.</p></div>
+    </div>
+  </section>
+
+  <section class="marketplace">
+    <div class="section-header"><div class="section-eyebrow" data-i="proofEyebrow">TRUST & PROOF</div><h2 class="section-title" data-i="proofTitle">DESIGNED TO CONVERT</h2></div>
+    <div class="testi-grid">
+      <div class="testi-card"><p data-i="proof1">"Exactly the kind of premium frontend that makes a small brand look international."</p></div>
+      <div class="testi-card"><p data-i="proof2">"Clean structure, modern UI, and easy to adapt for client work."</p></div>
+      <div class="testi-card"><p data-i="proof3">"A digital storefront experience that feels premium from the first scroll."</p></div>
+    </div>
+  </section>
+
+  <section class="marketplace">
+    <div class="cta-final"><div class="section-eyebrow" data-i="ctaEyebrow">READY TO START?</div><h2 class="section-title" data-i="ctaTitle">UPGRADE YOUR BRAND WITH AURA DIGITAL</h2><p style="color:var(--text-muted);margin-bottom:1.4rem" data-i="ctaDesc">Choose a premium template, place your order, and launch with a stronger digital presence.</p><a href="#templates" class="btn-primary" data-i="ctaBtn">BROWSE TEMPLATES</a></div>
+  </section>
+
+  <div class="modal-backdrop" id="checkoutModal">
+    <div class="checkout-modal">
+      <button class="modal-close" onclick="closeCheckout()">✕</button>
+      <div id="checkoutFormView">
+        <h3 class="checkout-title" data-i="checkoutTitle">GET TEMPLATE ACCESS</h3>
+        <p class="checkout-sub" data-i="checkoutSub">Instant download & license delivery sent directly to your inbox.</p>
+        <div class="order-preview-box"><div><span style="font-size:.75rem;color:var(--text-muted);text-transform:uppercase" data-i="selectedItem">SELECTED ITEM</span><div class="op-title" id="chkProductTitle">Aura AI Template</div></div><div class="op-price" id="chkPrice">12,500 DZD</div></div>
+        <div class="dzd-note" data-i="dzdNote">AURA DIGITAL × CCP — eCCP is now available for a smoother, more modern checkout. BaridiMob is also supported. All checkout totals are in DZD.</div>
+        <label class="form-label" data-i="licenseLabel">CHOOSE LICENSE TIER</label>
+        <div class="license-options">
+          <div class="lic-card selected" id="licSingle" onclick="selectLicense('Single Site License', 0)"><h5 data-i="lic1t">Single Site License</h5><p data-i="lic1d">For 1 personal or client project. Standard support.</p></div>
+          <div class="lic-card" id="licAgency" onclick="selectLicense('Unlimited Agency License', 4000)"><h5 data-i="lic2t">Unlimited Agency (+ 4000 DZD)</h5><p data-i="lic2d">Unlimited client commercial sites. Priority VIP support.</p></div>
+        </div>
+        <div class="form-group"><label class="form-label" data-i="nameLabel">YOUR FULL NAME</label><input type="text" class="form-input" id="chkName"></div>
+        <div class="form-group"><label class="form-label" data-i="emailLabel">EMAIL ADDRESS</label><input type="email" class="form-input" id="chkEmail"></div>
+        <div class="form-group"><label class="form-label" data-i="phoneLabel">PHONE NUMBER</label><input type="text" class="form-input" id="chkPhone"></div>
+        <div class="form-group"><label class="form-label" data-i="paymentLabel">PAYMENT METHOD</label><select id="paymentMethod" class="form-select"><option data-i="pay1">Card</option><option data-i="pay2">PayPal</option><option data-i="pay3">Crypto</option><option data-i="pay4">CCP</option><option data-i="pay5">BaridiMob</option></select></div>
+        <button class="btn-primary" style="width:100%;justify-content:center;padding:1.1rem;font-size:1rem;" onclick="processOrder()"><span data-i="purchaseBtn">COMPLETE PURCHASE</span> (<span id="chkTotalBtn">12,500 DZD</span>)</button>
+      </div>
+      <div class="success-view" id="checkoutSuccessView"><div class="success-icon">✓</div><h3 class="checkout-title" data-i="successTitle">PURCHASE CONFIRMED!</h3><p style="color:var(--text-muted);margin:1rem 0 2rem;" data-i="successText">Your order has been received successfully. We will follow up with your access details.</p><button class="btn-outline" style="width:100%;justify-content:center;" onclick="closeCheckout()" data-i="backBtn">BACK TO MARKETPLACE</button></div>
     </div>
   </div>
-</footer>
 
-<script>
-// --- DEFAULT TEMPLATES DATA ---
-const DEFAULT_PRODUCTS = [
-  {
-    id: 1, name: "Aura AI — Next.js SaaS & Agency UI Kit", category: "SaaS & AI", price: 79, old: 129, discount: 38, featured: true, order: 1, previewUrl: "https://example.com/demo/aura-ai",
-    images: ["https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"]
-  },
-  {
-    id: 2, name: "Nexus Dashboard — Tailwind Admin Template", category: "Dashboard", price: 69, old: 99, discount: 30, featured: true, order: 2, previewUrl: "https://example.com/demo/nexus-dashboard",
-    images: ["https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80"]
-  },
-  {
-    id: 3, name: "Vertex Studio — Creative Portfolio & Agency", category: "Portfolio", price: 49, old: 89, discount: 45, featured: true, order: 3, previewUrl: "https://example.com/demo/vertex-studio",
-    images: ["https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80"]
-  },
-  {
-    id: 4, name: "Pulse Commerce — React E-Commerce Storefront", category: "E-Commerce", price: 89, old: 149, discount: 40, featured: true, order: 4, previewUrl: "https://example.com/demo/pulse-commerce",
-    images: ["https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80"]
-  },
-  {
-    id: 5, name: "Chroma Web3 — Crypto & NFT Marketplace UI", category: "Landing Pages", price: 59, old: 99, discount: 40, featured: false, order: 5, previewUrl: "https://example.com/demo/chroma-web3",
-    images: ["https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80"]
-  },
-  {
-    id: 6, name: "Synthese Vue — Developer Documentation & Blog", category: "SaaS & AI", price: 39, old: 59, discount: 34, featured: false, order: 6, previewUrl: "https://example.com/demo/synthese-vue",
-    images: ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80"]
-  }
-];
+  <div class="toast" id="toastBox"><span id="toastMsg">Notification</span></div>
 
-let allProducts = [];
-let currentCategory = 'ALL';
-let currentSearch = '';
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-about"><a href="#" class="nav-logo"><span class="logo-dot"></span> AURA <span>DIGITAL</span></a><p data-i="footerAbout">The premier destination for production-ready frontend website templates with a premium dark-tech aesthetic.</p></div>
+      <div class="footer-col"><h5 data-i="footerCol1">TEMPLATES</h5><ul class="footer-links"><li><a href="#templates" data-i="footerL1">SaaS UI</a></li><li><a href="#templates" data-i="footerL2">Dashboards</a></li><li><a href="#templates" data-i="footerL3">Portfolios</a></li></ul></div>
+      <div class="footer-col"><h5 data-i="footerCol2">PAYMENTS</h5><ul class="footer-links"><li><a href="#templates">Card</a></li><li><a href="#templates">PayPal</a></li><li><a href="#templates">CCP</a></li><li><a href="#templates">BaridiMob</a></li></ul></div>
+      <div class="footer-col"><h5 data-i="footerCol3">AURA DIGITAL</h5><p style="color:var(--text-muted);font-size:.9rem" data-i="footerNote">Premium templates for creators, founders, agencies, and modern brands.</p></div>
+    </div>
+    <div class="footer-bottom"><p data-i="copyright">© 2026 AURA DIGITAL. ALL RIGHTS RESERVED.</p></div>
+  </footer>
 
-function getLocalProducts() {
-  const p = localStorage.getItem('aura_products');
-  if (!p) { localStorage.setItem('aura_products', JSON.stringify(DEFAULT_PRODUCTS)); return DEFAULT_PRODUCTS; }
-  return JSON.parse(p);
-}
+  <script>
+    const translations = {
+      ar:{navHome:'الرئيسية',navTemplates:'القوالب',navWhy:'لماذا نحن',adminBtn:'الإدارة',heroEyebrow:'⚡ قوالب واجهات الجيل الجديد',heroTitle1:'قوالب مواقع',heroTitle2:'احترافية',heroSubtitle:'ارتقِ بحضورك الرقمي عبر واجهات حديثة جداً مبنية لـ Next.js وReact وVue وTailwind CSS. مصممة للنجاح، متجاوبة، وسهلة التخصيص.',heroBtn1:'استكشف القوالب',heroBtn2:'معاينة مباشرة',localPay:'AURA DIGITAL × CCP — يمكنك الآن الدفع عبر eCCP بدل الطريقة التقليدية. BaridiMob متوفر أيضاً. جميع الأسعار معروضة بالدينار الجزائري.',badge1t:'متجاوب 100%',badge1d:'جاهز للهاتف والتابلت',badge2t:'هيكلة نظيفة',badge2d:'Tailwind وTypeScript',feat1t:'متجاوب',feat1d:'يعمل على كل الشاشات',feat2t:'قابل للتعديل',feat2d:'سهل التخصيص لاحقاً',feat3t:'تقنيات حديثة',feat3d:'مصمم للعلامات المميزة',feat4t:'دفع بسيط',feat4d:'بطاقة، CCP، BaridiMob',catalogEyebrow:'كتالوج قوالب مختار',catalogTitle:'اكتشف قوالبنا',catalogDesc:'اختر من بين واجهات عالية التحويل مصممة لمشاريع SaaS والوكالات الإبداعية والمطورين العصريين.',searchPlaceholder:'ابحث عن قالب...',howEyebrow:'كيف يعمل',howTitle:'مسار طلب بسيط',step1t:'اختر القالب',step1d:'تصفح الكتالوج واختر الواجهة المناسبة لعلامتك.',step2t:'أرسل الطلب',step2d:'اختر الترخيص وأدخل معلوماتك في ثوانٍ.',step3t:'استلم الوصول',step3d:'نؤكد الطلب ونرسل لك تفاصيل الوصول.',step4t:'خصصه لاحقاً',step4d:'استعمله مباشرة أو عدله لاحقاً لمشروعك أو لعميل.',whyEyebrow:'لماذا Aura Digital',whyTitle:'مصمم للعلامات الحديثة',why1t:'تموضع فاخر',why1d:'كل قالب مصمم ليجعل علامتك تبدو حديثة وراقية.',why2t:'هيكل قابل للتعديل',why2d:'أقسام واضحة وسهلة التخصيص بعد الشراء.',why3t:'دفع مرن',why3d:'أسعار بالدينار مع دعم البطاقة وPayPal والكريبتو وCCP وBaridiMob.',proofEyebrow:'الثقة والانطباع',proofTitle:'مصمم للتحويل',proof1:'"بالضبط نوع الواجهة الفاخرة التي تجعل العلامة الصغيرة تبدو عالمية."',proof2:'"هيكل نظيف وواجهة حديثة وسهلة التكييف لأعمال العملاء."',proof3:'"تجربة متجر رقمي تبدو احترافية من أول تمريرة."',ctaEyebrow:'جاهز للانطلاق؟',ctaTitle:'طوّر حضور علامتك مع Aura Digital',ctaDesc:'اختر قالباً مميزاً وأرسل طلبك وابدأ بحضور رقمي أقوى.',ctaBtn:'تصفح القوالب',checkoutTitle:'احصل على القالب',checkoutSub:'سيتم إرسال الوصول والملفات إلى بريدك الإلكتروني.',selectedItem:'العنصر المختار',dzdNote:'AURA DIGITAL × CCP — أصبح eCCP متاحاً الآن لتجربة دفع أكثر سلاسة وعصرية. BaridiMob مدعوم أيضاً. جميع المبالغ بالدينار الجزائري.',licenseLabel:'اختر نوع الترخيص',lic1t:'ترخيص موقع واحد',lic1d:'لمشروع شخصي أو مشروع عميل واحد مع دعم عادي.',lic2t:'ترخيص وكالة غير محدود (+ 4000 دج)',lic2d:'استخدام تجاري غير محدود للعملاء مع دعم أولوية.',nameLabel:'الاسم الكامل',emailLabel:'البريد الإلكتروني',phoneLabel:'رقم الهاتف',paymentLabel:'طريقة الدفع',pay1:'بطاقة',pay2:'بايبال',pay3:'كريبتو',pay4:'CCP',pay5:'BaridiMob',purchaseBtn:'إتمام الشراء',successTitle:'تم تأكيد الطلب!',successText:'تم استلام طلبك بنجاح وسنتابع معك بتفاصيل الوصول.',backBtn:'العودة إلى القوالب',footerAbout:'وجهتك المميزة لقوالب الواجهات الجاهزة بمظهر تقني فاخر وداكن.',footerCol1:'القوالب',footerL1:'واجهات SaaS',footerL2:'لوحات التحكم',footerL3:'بورتفوليو',footerCol2:'الدفع',footerCol3:'AURA DIGITAL',footerNote:'قوالب مميزة للمبدعين والمؤسسين والوكالات والعلامات الحديثة.',copyright:'© 2026 AURA DIGITAL. جميع الحقوق محفوظة.',categoryAll:'الكل',buyTemplate:'اشترِ القالب',liveDemo:'معاينة مباشرة',empty:'لا توجد قوالب مطابقة.',orderOk:'تم تأكيد الطلب بنجاح!',orderErr:'تعذر إرسال الطلب حالياً.',enterValid:'يرجى إدخال الاسم والبريد الإلكتروني على الأقل.'},
+      en:{navHome:'HOME',navTemplates:'TEMPLATES',navWhy:'WHY US',adminBtn:'ADMIN',heroEyebrow:'⚡ NEXT-GEN FRONTEND TEMPLATES',heroTitle1:'PREMIUM WEBSITE',heroTitle2:'TEMPLATES',heroSubtitle:'Elevate your online presence with ultra-modern UI architectures. Built for Next.js, React, Vue, and Tailwind CSS. Designed for success, responsive, and easily customizable.',heroBtn1:'EXPLORE TEMPLATES',heroBtn2:'LIVE SHOWCASE',localPay:'AURA DIGITAL × CCP — Now you can pay with eCCP instead of the old-fashioned way. BaridiMob is also available. All prices are shown in DZD.',badge1t:'100% Responsive',badge1d:'Mobile & Tablet Ready',badge2t:'Clean Architecture',badge2d:'Tailwind & TypeScript',feat1t:'Responsive',feat1d:'Works on all screens',feat2t:'Editable',feat2d:'Easy to customize later',feat3t:'Modern Stack',feat3d:'Built for premium brands',feat4t:'Simple Payment',feat4d:'Card, CCP, BaridiMob',catalogEyebrow:'CURATED TEMPLATE CATALOG',catalogTitle:'EXPLORE OUR TEMPLATES',catalogDesc:'Select from our high-converting frontend solutions designed specifically for SaaS founders, creative agencies, and modern web developers.',searchPlaceholder:'Search templates...',howEyebrow:'HOW IT WORKS',howTitle:'SIMPLE ORDER FLOW',step1t:'Choose template',step1d:'Browse the catalog and pick the style that matches your brand.',step2t:'Place order',step2d:'Select your license and submit your details in a few seconds.',step3t:'Receive access',step3d:'We confirm the order and send your template access details.',step4t:'Customize later',step4d:'Use it as-is or adapt it later for your project or client.',whyEyebrow:'WHY AURA DIGITAL',whyTitle:'BUILT FOR MODERN BRANDS',why1t:'Premium Positioning',why1d:'Every template is crafted to make your brand look polished, modern, and expensive.',why2t:'Editable Structure',why2d:'Clean sections and reusable layout so you can customize after purchase.',why3t:'Flexible Payment',why3d:'DZD pricing with support for card, PayPal, crypto, CCP, and BaridiMob.',proofEyebrow:'TRUST & PROOF',proofTitle:'DESIGNED TO CONVERT',proof1:'"Exactly the kind of premium frontend that makes a small brand look international."',proof2:'"Clean structure, modern UI, and easy to adapt for client work."',proof3:'"A digital storefront experience that feels premium from the first scroll."',ctaEyebrow:'READY TO START?',ctaTitle:'UPGRADE YOUR BRAND WITH AURA DIGITAL',ctaDesc:'Choose a premium template, place your order, and launch with a stronger digital presence.',ctaBtn:'BROWSE TEMPLATES',checkoutTitle:'GET TEMPLATE ACCESS',checkoutSub:'Instant download & license delivery sent directly to your inbox.',selectedItem:'SELECTED ITEM',dzdNote:'AURA DIGITAL × CCP — eCCP is now available for a smoother, more modern checkout. BaridiMob is also supported. All checkout totals are in DZD.',licenseLabel:'CHOOSE LICENSE TIER',lic1t:'Single Site License',lic1d:'For 1 personal or client project. Standard support.',lic2t:'Unlimited Agency (+ 4000 DZD)',lic2d:'Unlimited client commercial sites. Priority VIP support.',nameLabel:'YOUR FULL NAME',emailLabel:'EMAIL ADDRESS',phoneLabel:'PHONE NUMBER',paymentLabel:'PAYMENT METHOD',pay1:'Card',pay2:'PayPal',pay3:'Crypto',pay4:'CCP',pay5:'BaridiMob',purchaseBtn:'COMPLETE PURCHASE',successTitle:'PURCHASE CONFIRMED!',successText:'Your order has been received successfully. We will follow up with your access details.',backBtn:'BACK TO MARKETPLACE',footerAbout:'The premier destination for production-ready frontend website templates with a premium dark-tech aesthetic.',footerCol1:'TEMPLATES',footerL1:'SaaS UI',footerL2:'Dashboards',footerL3:'Portfolios',footerCol2:'PAYMENTS',footerCol3:'AURA DIGITAL',footerNote:'Premium templates for creators, founders, agencies, and modern brands.',copyright:'© 2026 AURA DIGITAL. ALL RIGHTS RESERVED.',categoryAll:'ALL',buyTemplate:'BUY TEMPLATE',liveDemo:'LIVE DEMO',empty:'No frontend templates matching your query.',orderOk:'Order confirmed successfully!',orderErr:'Could not submit order right now.',enterValid:'Please enter at least your name and email.'},
+      fr:{navHome:'ACCUEIL',navTemplates:'TEMPLATES',navWhy:'POURQUOI NOUS',adminBtn:'ADMIN',heroEyebrow:'⚡ TEMPLATES FRONTEND NOUVELLE GÉNÉRATION',heroTitle1:'TEMPLATES WEB',heroTitle2:'PREMIUM',heroSubtitle:'Élevez votre présence en ligne avec des interfaces ultra-modernes. Construit pour Next.js, React, Vue et Tailwind CSS. Réactif, performant et facile à personnaliser.',heroBtn1:'VOIR LES TEMPLATES',heroBtn2:'DÉMO EN DIRECT',localPay:'AURA DIGITAL × CCP — Vous pouvez maintenant payer avec eCCP au lieu de l’ancienne méthode. BaridiMob est aussi disponible. Tous les prix sont affichés en DZD.',badge1t:'100% Responsive',badge1d:'Mobile et tablette',badge2t:'Architecture propre',badge2d:'Tailwind & TypeScript',feat1t:'Responsive',feat1d:'Fonctionne sur tous les écrans',feat2t:'Modifiable',feat2d:'Facile à personnaliser ensuite',feat3t:'Stack moderne',feat3d:'Pensé pour des marques premium',feat4t:'Paiement simple',feat4d:'Carte, CCP, BaridiMob',catalogEyebrow:'CATALOGUE SÉLECTIONNÉ',catalogTitle:'DÉCOUVREZ NOS TEMPLATES',catalogDesc:'Choisissez parmi nos solutions frontend premium conçues pour les fondateurs SaaS, agences créatives et développeurs modernes.',searchPlaceholder:'Rechercher un template...',howEyebrow:'COMMENT ÇA MARCHE',howTitle:'COMMANDE SIMPLE',step1t:'Choisissez un template',step1d:'Parcourez le catalogue et sélectionnez le style adapté à votre marque.',step2t:'Passez commande',step2d:'Choisissez votre licence et envoyez vos informations en quelques secondes.',step3t:'Recevez l’accès',step3d:'Nous confirmons la commande et envoyons les détails d’accès.',step4t:'Personnalisez ensuite',step4d:'Utilisez-le tel quel ou adaptez-le plus tard pour votre projet ou client.',whyEyebrow:'POURQUOI AURA DIGITAL',whyTitle:'PENSÉ POUR LES MARQUES MODERNES',why1t:'Positionnement premium',why1d:'Chaque template est conçu pour donner à votre marque une image moderne et haut de gamme.',why2t:'Structure modifiable',why2d:'Sections propres et réutilisables pour personnaliser après achat.',why3t:'Paiement flexible',why3d:'Prix en DZD avec carte, PayPal, crypto, CCP et BaridiMob.',proofEyebrow:'CONFIANCE & PREUVE',proofTitle:'CONÇU POUR CONVERTIR',proof1:'"Exactement le type de frontend premium qui donne à une petite marque une allure internationale."',proof2:'"Structure propre, UI moderne et facile à adapter pour des clients."',proof3:'"Une expérience de storefront digital qui paraît premium dès le premier scroll."',ctaEyebrow:'PRÊT À COMMENCER ?',ctaTitle:'AMÉLIOREZ VOTRE MARQUE AVEC AURA DIGITAL',ctaDesc:'Choisissez un template premium, passez commande et lancez-vous avec une présence digitale plus forte.',ctaBtn:'VOIR LES TEMPLATES',checkoutTitle:'OBTENIR LE TEMPLATE',checkoutSub:'L’accès et les fichiers seront envoyés à votre adresse e-mail.',selectedItem:'ARTICLE SÉLECTIONNÉ',dzdNote:'AURA DIGITAL × CCP — eCCP est maintenant disponible pour un paiement plus fluide et plus moderne. BaridiMob est aussi pris en charge. Tous les montants sont en DZD.',licenseLabel:'CHOISIR LA LICENCE',lic1t:'Licence site unique',lic1d:'Pour 1 projet personnel ou client. Support standard.',lic2t:'Licence agence illimitée (+ 4000 DZD)',lic2d:'Usage commercial illimité avec support prioritaire.',nameLabel:'NOM COMPLET',emailLabel:'ADRESSE EMAIL',phoneLabel:'NUMÉRO DE TÉLÉPHONE',paymentLabel:'MÉTHODE DE PAIEMENT',pay1:'Carte',pay2:'PayPal',pay3:'Crypto',pay4:'CCP',pay5:'BaridiMob',purchaseBtn:'FINALISER L’ACHAT',successTitle:'ACHAT CONFIRMÉ !',successText:'Votre commande a bien été reçue. Nous vous contacterons avec les détails d’accès.',backBtn:'RETOUR AU CATALOGUE',footerAbout:'La destination premium pour les templates frontend prêts à l’emploi avec une esthétique dark-tech.',footerCol1:'TEMPLATES',footerL1:'UI SaaS',footerL2:'Dashboards',footerL3:'Portfolios',footerCol2:'PAIEMENTS',footerCol3:'AURA DIGITAL',footerNote:'Templates premium pour créateurs, fondateurs, agences et marques modernes.',copyright:'© 2026 AURA DIGITAL. TOUS DROITS RÉSERVÉS.',categoryAll:'TOUT',buyTemplate:'ACHETER',liveDemo:'DÉMO',empty:'Aucun template ne correspond à votre recherche.',orderOk:'Commande confirmée avec succès !',orderErr:'Impossible d’envoyer la commande maintenant.',enterValid:'Veuillez saisir au moins votre nom et votre e-mail.'}
+    };
 
-function getLocalOrders() {
-  const o = localStorage.getItem('aura_orders');
-  return o ? JSON.parse(o) : [];
-}
-function setLocalOrders(arr) { localStorage.setItem('aura_orders', JSON.stringify(arr)); }
+    let currentLang = 'ar';
+    let allProducts = [];
+    let currentCategory = 'ALL';
+    let currentSearch = '';
+    let activeTemplate = null;
+    let selectedLicenseName = 'Single Site License';
+    let basePrice = 0;
+    let extraPrice = 0;
 
-async function initMarketplace() {
-  try {
-    const res = await fetch('/api/products');
-    if (!res.ok) throw new Error('API offline');
-    allProducts = await res.json();
-  } catch (e) {
-    allProducts = getLocalProducts();
-  }
-  renderTemplates();
-  startCountdown();
-}
+    function formatDZD(value){ return `${Number(value || 0).toLocaleString('fr-DZ')} DZD`; }
+    function showToast(msg){ const box=document.getElementById('toastBox'); document.getElementById('toastMsg').textContent=msg; box.classList.add('show'); setTimeout(()=>box.classList.remove('show'),3000); }
+    function applyLanguage(lang){ currentLang = lang; const isArabic = lang === 'ar'; document.documentElement.lang = lang; document.documentElement.dir = isArabic ? 'rtl' : 'ltr'; document.body.classList.toggle('rtl', isArabic); document.querySelectorAll('[data-i]').forEach(el => { const key = el.dataset.i; if (translations[lang][key]) el.textContent = translations[lang][key]; }); document.querySelectorAll('[data-ph]').forEach(el => { const key = el.dataset.ph; if (translations[lang][key]) el.placeholder = translations[lang][key]; }); document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang)); renderFilterBar(); renderTemplates(); }
 
-function renderTemplates() {
-  const grid = document.getElementById('templatesGrid');
-  let filtered = allProducts.filter(p => {
-    const matchCat = currentCategory === 'ALL' || p.category.toLowerCase() === currentCategory.toLowerCase();
-    const matchQuery = !currentSearch || p.name.toLowerCase().includes(currentSearch.toLowerCase()) || p.category.toLowerCase().includes(currentSearch.toLowerCase());
-    return matchCat && matchQuery;
-  });
+    async function initMarketplace(){ try{ const res = await fetch('/api/products', { cache:'no-store' }); if(!res.ok) throw new Error('API offline'); allProducts = await res.json(); renderFilterBar(); renderTemplates(); }catch(e){ console.error(e); document.getElementById('templatesGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--text-muted)">${translations[currentLang].empty}</div>`; } }
+    function getDiscount(p){ const old = p.oldPrice || 0; if (!old || old <= p.price) return 0; return Math.round((1 - p.price / old) * 100); }
+    function renderFilterBar(){ const bar=document.getElementById('filterBar'); const unique=[...new Set(allProducts.map(p=>p.category).filter(Boolean))]; const items=['ALL', ...unique]; bar.innerHTML = items.map(cat => `<button class="filter-btn ${cat===currentCategory?'active':''}" onclick="filterCategory('${cat.replace(/'/g,"\\'")}')">${cat==='ALL'?translations[currentLang].categoryAll:cat}</button>`).join(''); }
+    function filterCategory(cat){ currentCategory = cat; renderFilterBar(); renderTemplates(); }
+    function renderTemplates(){ const grid=document.getElementById('templatesGrid'); const q=currentSearch.toLowerCase().trim(); const filtered=allProducts.filter(p => { const matchCat=currentCategory==='ALL'||p.category===currentCategory; const matchSearch=!q||p.name.toLowerCase().includes(q)||(p.category||'').toLowerCase().includes(q); return matchCat&&matchSearch; }); if(!filtered.length){ grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--text-muted)">${translations[currentLang].empty}</div>`; return; } grid.innerHTML = filtered.map(p => { const img=p.image||'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80'; const discount=getDiscount(p); return `<div class="tpl-card"><div class="tpl-img-wrap"><img src="${img}" alt="${p.name}">${discount?`<span class="tpl-discount-badge">-${discount}%</span>`:''}</div><div class="tpl-body"><div><span class="tpl-cat">${p.category||''}</span><h3 class="tpl-title">${p.name}</h3></div><div class="tpl-meta"><span>React</span><span>Figma</span><span>Tailwind</span><span>CCP / BaridiMob</span></div><div class="tpl-footer"><div class="tpl-price-wrap"><span class="tpl-price">${formatDZD(p.price)}</span>${p.oldPrice?`<span class="tpl-old">${formatDZD(p.oldPrice)}</span>`:''}</div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><a href="${p.previewUrl||'#'}" target="_blank" class="overlay-btn">${translations[currentLang].liveDemo}</a><button class="btn-buy" onclick="openCheckout(${p.id})">${translations[currentLang].buyTemplate}</button></div></div></div></div>`; }).join(''); }
+    function openCheckout(id){ activeTemplate = allProducts.find(p => p.id === id); if(!activeTemplate) return; basePrice = activeTemplate.price; extraPrice = 0; selectedLicenseName = 'Single Site License'; document.getElementById('chkProductTitle').textContent = activeTemplate.name; updateCheckoutTotal(); document.getElementById('licSingle').classList.add('selected'); document.getElementById('licAgency').classList.remove('selected'); document.getElementById('chkName').value=''; document.getElementById('chkEmail').value=''; document.getElementById('chkPhone').value=''; document.getElementById('checkoutFormView').style.display='block'; document.getElementById('checkoutSuccessView').style.display='none'; document.getElementById('checkoutModal').classList.add('show'); }
+    function closeCheckout(){ document.getElementById('checkoutModal').classList.remove('show'); }
+    function selectLicense(name, extra){ selectedLicenseName=name; extraPrice=extra; document.getElementById('licSingle').classList.toggle('selected', extra===0); document.getElementById('licAgency').classList.toggle('selected', extra!==0); updateCheckoutTotal(); }
+    function updateCheckoutTotal(){ const total=basePrice+extraPrice; document.getElementById('chkPrice').textContent=formatDZD(total); document.getElementById('chkTotalBtn').textContent=formatDZD(total); }
+    async function processOrder(){ const name=document.getElementById('chkName').value.trim(); const email=document.getElementById('chkEmail').value.trim(); const phone=document.getElementById('chkPhone').value.trim(); const paymentMethod=document.getElementById('paymentMethod').value; const total=basePrice+extraPrice; if(!name||!email){ showToast(translations[currentLang].enterValid); return; } try{ const res = await fetch('/api/orders', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ product:activeTemplate.name, customer:name, email, phone, license:selectedLicenseName, price:total, qty:1, paymentMethod }) }); if(!res.ok) throw new Error('Order failed'); document.getElementById('checkoutFormView').style.display='none'; document.getElementById('checkoutSuccessView').style.display='block'; showToast(translations[currentLang].orderOk); }catch(e){ console.error(e); showToast(translations[currentLang].orderErr); } }
 
-  filtered.sort((a,b) => (a.order||999) - (b.order||999));
-
-  if (!filtered.length) {
-    grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 4rem; color:var(--text-muted);">No frontend templates matching your query.</div>';
-    return;
-  }
-
-  let html = '';
-  filtered.forEach(p => {
-    const img = p.images && p.images[0] ? p.images[0] : 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80';
-    html += `<div class="tpl-card">
-      <div class="tpl-img-wrap">
-        <img src="${img}" alt="${p.name}">
-        <div class="tpl-preview-overlay">
-          <a href="${p.previewUrl || '#'}" target="_blank" class="overlay-btn"><i class="fas fa-eye"></i> Live Demo</a>
-        </div>
-        ${p.discount ? `<span class="tpl-discount-badge">-${p.discount}%</span>` : ''}
-      </div>
-      <div class="tpl-body">
-        <div>
-          <span class="tpl-cat">${p.category}</span>
-          <h3 class="tpl-title">${p.name}</h3>
-        </div>
-        <div class="tpl-meta">
-          <span><i class="fab fa-react"></i> React</span>
-          <span><i class="fab fa-figma"></i> Figma</span>
-          <span><i class="fas fa-bolt"></i> Tailwind</span>
-        </div>
-        <div class="tpl-footer">
-          <div class="tpl-price-wrap">
-            <span class="tpl-price">$${p.price}</span>
-            ${p.old ? `<span class="tpl-old">$${p.old}</span>` : ''}
-          </div>
-          <button class="btn-buy" onclick="openCheckout(${p.id})">BUY TEMPLATE</button>
-        </div>
-      </div>
-    </div>`;
-  });
-
-  grid.innerHTML = html;
-}
-
-function filterCategory(cat, btn) {
-  currentCategory = cat;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  renderTemplates();
-}
-
-function filterSearch() {
-  currentSearch = document.getElementById('searchInput').value.trim();
-  renderTemplates();
-}
-
-// --- CHECKOUT LOGIC ---
-let activeTemplate = null;
-let selectedLicenseName = 'Single Site License';
-let basePrice = 0;
-let extraPrice = 0;
-
-function openCheckout(id) {
-  activeTemplate = allProducts.find(p => p.id === id);
-  if (!activeTemplate) return;
-
-  basePrice = activeTemplate.price;
-  extraPrice = 0;
-  selectedLicenseName = 'Single Site License';
-
-  document.getElementById('chkProductTitle').textContent = activeTemplate.name;
-  document.getElementById('chkPrice').textContent = '$' + basePrice;
-  updateCheckoutTotal();
-
-  document.getElementById('licSingle').classList.add('selected');
-  document.getElementById('licAgency').classList.remove('selected');
-  document.getElementById('chkName').value = '';
-  document.getElementById('chkEmail').value = '';
-
-  document.getElementById('checkoutFormView').style.display = 'block';
-  document.getElementById('checkoutSuccessView').style.display = 'none';
-  document.getElementById('checkoutModal').classList.add('show');
-}
-
-function selectLicense(name, extra) {
-  selectedLicenseName = name === 'Single Site' ? 'Single Site License' : 'Unlimited Agency License';
-  extraPrice = extra;
-  if (extra === 0) {
-    document.getElementById('licSingle').classList.add('selected');
-    document.getElementById('licAgency').classList.remove('selected');
-  } else {
-    document.getElementById('licSingle').classList.remove('selected');
-    document.getElementById('licAgency').classList.add('selected');
-  }
-  updateCheckoutTotal();
-}
-
-function updateCheckoutTotal() {
-  const total = basePrice + extraPrice;
-  document.getElementById('chkPrice').textContent = '$' + total;
-  document.getElementById('chkTotalBtn').textContent = '$' + total;
-}
-
-function selectPay(el) {
-  document.querySelectorAll('.pay-m').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-}
-
-async function processOrder() {
-  const name = document.getElementById('chkName').value.trim();
-  const email = document.getElementById('chkEmail').value.trim();
-  const total = basePrice + extraPrice;
-
-  if (!name || !email || !email.includes('@')) {
-    showToast('⚠️ Please enter a valid name and email.');
-    return;
-  }
-
-  const orderPayload = {
-    product: activeTemplate.name,
-    customer: name,
-    email: email,
-    phone: email,
-    license: selectedLicenseName,
-    size: selectedLicenseName,
-    price: total,
-    qty: 1
-  };
-
-  try {
-    const res = await fetch('/api/orders', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(orderPayload)
-    });
-    if (!res.ok) throw new Error('API offline');
-  } catch (e) {
-    const orders = getLocalOrders();
-    orders.push({
-      ...orderPayload,
-      id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
-      date: new Date().toISOString().split('T')[0]
-    });
-    setLocalOrders(orders);
-  }
-
-  document.getElementById('checkoutFormView').style.display = 'none';
-  document.getElementById('checkoutSuccessView').style.display = 'block';
-  showToast('🎉 Order confirmed! Access link sent.');
-}
-
-function closeCheckout() { document.getElementById('checkoutModal').classList.remove('show'); }
-
-// COUNTDOWN TIMER
-function startCountdown() {
-  let h = 14, m = 28, s = 49;
-  setInterval(() => {
-    if (s > 0) s--;
-    else { s = 59; if (m > 0) m--; else { m = 59; if (h > 0) h--; else h = 23; } }
-    document.getElementById('t-hours').textContent = String(h).padStart(2, '0');
-    document.getElementById('t-mins').textContent = String(m).padStart(2, '0');
-    document.getElementById('t-secs').textContent = String(s).padStart(2, '0');
-  }, 1000);
-}
-
-// TOAST
-function showToast(msg) {
-  const box = document.getElementById('toastBox');
-  document.getElementById('toastMsg').textContent = msg;
-  box.classList.add('show');
-  setTimeout(() => box.classList.remove('show'), 3500);
-}
-
-document.getElementById('checkoutModal').addEventListener('click', (e) => { if (e.target.id === 'checkoutModal') closeCheckout(); });
-
-// Start app
-initMarketplace();
-</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10d8c9c3f5cba9c',t:'MTc4MjMyMzE1OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    document.getElementById('searchInput').addEventListener('input', e => { currentSearch=e.target.value||''; renderTemplates(); });
+    document.getElementById('checkoutModal').addEventListener('click', e => { if(e.target.id==='checkoutModal') closeCheckout(); });
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', ()=>applyLanguage(btn.dataset.lang)));
+    applyLanguage('ar');
+    initMarketplace();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a12fba198ce32837',t:'MTc4MjY4MTUzNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
