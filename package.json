@@ -1,7 +1,7 @@
 {
   "name": "aura-digital-templates",
-  "version": "3.0.0",
-  "description": "Aura Digital premium multilingual storefront and admin panel with JSON backend",
+  "version": "1.0.0",
+  "description": "Premium Website & Frontend Templates Marketplace with Admin Dashboard",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -10,6 +10,6 @@
     "express": "^4.18.2"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=14.0.0"
   }
 }

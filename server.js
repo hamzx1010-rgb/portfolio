@@ -129,6 +129,7 @@ app.put('/api/admin/products/:id', (req, res) => {
     featured: req.body.featured !== undefined ? !!req.body.featured : current.featured,
     previewUrl: String(req.body.previewUrl ?? current.previewUrl).trim(),
     image: String(req.body.image ?? current.image).trim(),
+    images: Array.isArray(req.body.images) ? req.body.images.slice(0, 10) : (current.images || []),
     updatedAt: new Date().toISOString()
   };
 
