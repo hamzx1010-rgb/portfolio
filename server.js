@@ -86,6 +86,11 @@ app.post('/api/admin/products', (req, res) => {
     : toNumber(req.body.oldPrice, NaN);
   const previewUrl = String(req.body.previewUrl || '').trim();
   const image = String(req.body.image || '').trim();
+  const images = Array.isArray(req.body.images) ? req.body.images.slice(0, 10) : [];
+  const premiumTitle = String(req.body.premiumTitle || 'Premium Website').trim();
+  const premiumDescription = String(req.body.premiumDescription || '24/7 running support, maintenance, and monthly subscription service.').trim();
+  const premiumExtraPrice = toNumber(req.body.premiumExtraPrice, 6000);
+  const premiumFeatures = Array.isArray(req.body.premiumFeatures) ? req.body.premiumFeatures.slice(0, 20) : [];
   const featured = !!req.body.featured;
 
   if (!name || !category || !Number.isFinite(price)) {
@@ -102,6 +107,11 @@ app.post('/api/admin/products', (req, res) => {
     order: products.length + 1,
     previewUrl: previewUrl || '#',
     image: image || '',
+    images,
+    premiumTitle,
+    premiumDescription,
+    premiumExtraPrice,
+    premiumFeatures,
     createdAt: new Date().toISOString()
   };
 
@@ -130,6 +140,10 @@ app.put('/api/admin/products/:id', (req, res) => {
     previewUrl: String(req.body.previewUrl ?? current.previewUrl).trim(),
     image: String(req.body.image ?? current.image).trim(),
     images: Array.isArray(req.body.images) ? req.body.images.slice(0, 10) : (current.images || []),
+    premiumTitle: String(req.body.premiumTitle ?? current.premiumTitle ?? 'Premium Website').trim(),
+    premiumDescription: String(req.body.premiumDescription ?? current.premiumDescription ?? '24/7 running support, maintenance, and monthly subscription service.').trim(),
+    premiumExtraPrice: toNumber(req.body.premiumExtraPrice, current.premiumExtraPrice ?? 6000),
+    premiumFeatures: Array.isArray(req.body.premiumFeatures) ? req.body.premiumFeatures.slice(0, 20) : (current.premiumFeatures || []),
     updatedAt: new Date().toISOString()
   };
 
